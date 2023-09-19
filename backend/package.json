@@ -1,0 +1,20 @@
+{
+	"name": "nft-minter",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"build": "npx hardhat compile",
+		"deploy": "npx hardhat run ./scripts/deploy.js --network ARB_MAINNET",
+		"node": "npx hardhat node",
+		"deploy-local": "npx hardhat run ./scripts/deploy.js --network localhost"
+	},
+	"devDependencies": {
+		"@nomicfoundation/hardhat-toolbox": "^3.0.0",
+		"erc721a": "^4.2.3",
+		"hardhat": "^2.17.3"
+	},
+	"dependencies": {
+		"@openzeppelin/contracts": "^4.9.3",
+		"dotenv": "^16.3.1"
+	}
+}
