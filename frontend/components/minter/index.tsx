@@ -6,13 +6,11 @@ import {
   useWaitForTransaction,
 } from "wagmi";
 import styles from "./minter.module.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { parseUnits } from "viem";
 
-// import { abi } from "../../artifacts/contracts/NFT.sol/NFT.json";
-// import { abi as tokenABI } from "../../artifacts/contracts/Token.sol/MyToken.json";
-import { nftABI } from "@/assets/nftABI";
-import { formatEther, isAddress, parseUnits } from "viem";
-import { tokenABI } from "@/assets/tokenABI";
+import nftJson from "../../artifacts/contracts/NFT.sol/NFT.json";
+import tokenJson from "../../artifacts/contracts/Token.sol/MyToken.json";
 
 const NFT_CONTRACT = process.env.NEXT_PUBLIC_NFT_CONTRACT as `0x${string}`;
 const TOKEN_CONTRACT = process.env.NEXT_PUBLIC_TOKEN_CONTRACT as `0x${string}`;
@@ -30,22 +28,23 @@ export default function Minter() {
     data: allowanceData,
     isError: allowanceError,
     isLoading: allowanceLoading,
+    isSuccess: allowanceSuccess,
   } = useContractRead({
     address: TOKEN_CONTRACT,
-    abi: tokenABI,
+    abi: tokenJson.abi,
     functionName: "allowance",
     args: [address as `0x${string}`, NFT_CONTRACT],
     enabled: address != null,
     watch: true,
     onSuccess(data) {
-      setApprovedAmount(data);
+      setApprovedAmount(data as bigint);
     },
   });
 
   // approving funds
   const { config: approvalConfig } = usePrepareContractWrite({
     address: TOKEN_CONTRACT as `0x${string}`,
-    abi: tokenABI,
+    abi: tokenJson.abi,
     functionName: "approve",
     args: [NFT_CONTRACT, transferAmount],
     enabled: approvedAmount < transferAmount,
@@ -65,7 +64,7 @@ export default function Minter() {
   // mint nfts
   const { config: mintConfig } = usePrepareContractWrite({
     address: NFT_CONTRACT as `0x${string}`,
-    abi: nftABI,
+    abi: nftJson.abi,
     functionName: "mint",
     args: [BigInt(nftAmount)],
     enabled: approvedAmount >= transferAmount,
