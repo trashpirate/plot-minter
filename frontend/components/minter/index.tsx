@@ -135,7 +135,7 @@ export default function Minter() {
           Insufficient Balance
         </button>
       );
-    } else if (nftBalance != null && nftBalance >= 3) {
+    } else if (nftBalance != null && nftBalance >= 2) {
       return (
         <button className={styles.button_inactive} disabled={true} onClick={() => {}}>
           Max. 3 NFTs/Wallet
