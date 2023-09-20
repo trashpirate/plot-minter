@@ -112,9 +112,6 @@ export default function Minter() {
     functionName: "mint",
     args: [BigInt(nftAmount)],
     enabled: approvedAmount != null && approvedAmount >= transferAmount,
-    onSuccess(data) {
-      setNftMinted(true);
-    },
   });
   const {
     data: mintData,
@@ -138,16 +135,15 @@ export default function Minter() {
     } else if (nftBalance != null && nftBalance >= 2) {
       return (
         <button className={styles.button_inactive} disabled={true} onClick={() => {}}>
-          Max. 3 NFTs/Wallet
+          Max. 2 NFTs/Wallet
         </button>
       );
-    } else if ((approvedAmount != null && approvedAmount < transferAmount) || nftMinted) {
+    } else if ((approvedAmount != null && approvedAmount < transferAmount) || isMintSuccess) {
       return (
         <button
           className={styles.button}
           disabled={!approve || approvalLoading}
           onClick={() => {
-            setNftMinted(false);
             approve?.();
           }}
         >
@@ -170,7 +166,7 @@ export default function Minter() {
   function successMessage() {
     if (approvalSuccess && !isMintSuccess && !isMintLoading) {
       return <div className={styles.message}>Now mint your NFTs!</div>;
-    } else if (isMintSuccess && nftMinted) {
+    } else if (isMintSuccess) {
       return (
         <div className={styles.message}>
           Successfully Minted!
