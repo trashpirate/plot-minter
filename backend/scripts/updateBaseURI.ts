@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { MyToken, MyToken__factory, NFT, NFT__factory } from "../typechain-types";
+import { TouchGrass, TouchGrass__factory, Plots, Plots__factory } from "../typechain-types";
 import * as dotenv from "dotenv";
 dotenv.config();
 
@@ -7,7 +7,7 @@ dotenv.config();
 
 async function main() {
 
-const nftContractAddress = "0x723da737657d6C183149051B844c43851BB37dfa";
+const nftContractAddress = "0xB3c01d7FcAFc5bc548B74ad5b17091748e38056A";
 const newURI = "ipfs://bafybeigon7gjeqcw2ghjwkfyrw7yuzyunkca2dbjzscxzxaoc5tsiti7ke/";
 
   // define provider and deployer

@@ -1,36 +1,42 @@
 import fs from "fs";
 import process from "process";
+import { readdir } from "fs/promises";
 
 interface metaData {
   name: string;
   description: string;
   image: string;
-  external_url: string;
   attributes: any[];
 }
 
 async function main() {
   let index = 0;
-  fs.readdirSync("./images/").forEach((file) => {
+
+  fs.readdirSync("collection/upload").forEach(file => {
+    const [number, name] = file.split("_");
+    const [color, suffix] = name.split(".");
+
     let json: metaData;
     json = {
-      name: "Token #" + index,
-      description: "Description",
-      external_url: "",
+      name: "Plot #" + index,
+      description: "A plot of grass to touch, relax, and unwind.",
       image:
-        "ipfs://bafybeih2upxi6xczw2tvmcv7x2zlkxkbxaeqs7dzonnpknuigyxojng3qu/" +
+        "ipfs://bafybeibuogtgyd3bgf4zop5fggjvbvnkdd6ngz4zuyp63xwdhk43rmaeqe/" +
         file.toString(),
       attributes: [
         {
-          trait_type: "Base",
-          value: "Grass",
+          trait_type: "Color",
+          value: color,
         },
       ],
     };
 
-    fs.writeFileSync("./metadata/" + index + ".json", JSON.stringify(json));
+    fs.writeFileSync(
+      "./collection/metadata/" + index,
+      JSON.stringify(json)
+    );
+    
     index++;
-    console.log(file);
   });
 }
 
