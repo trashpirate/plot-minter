@@ -27,18 +27,26 @@ const config = createConfig(
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <title>App Title</title>
+      <title>Plots</title>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta charSet="utf-8" />
-      <meta name="description" content="App description" key="desc" />
+      <meta
+        name="description"
+        content="Plots are the way to disconnect from technology, and engage with the physical world, specifically by being in nature or getting fresh air."
+        key="desc"
+      />
 
       <meta name="twitter:card" content="summary_large_image" key="twcard" />
-      <meta name="twitter:creator" content="creator name" key="twhandle" />
+      <meta name="twitter:creator" content="Touch Grass" key="twhandle" />
 
-      <meta property="og:title" content="app title" key="ogtitle" />
-      <meta property="og:site_name" content="site title" key="ogsitename" />
-      <meta property="og:description" content="App description" key="ogdesc" />
-      <meta property="og:url" content="https://website.com" key="ogurl" />
+      <meta property="og:title" content="Plots" key="ogtitle" />
+      <meta property="og:site_name" content="Plots" key="ogsitename" />
+      <meta
+        property="og:description"
+        content="Plots are the way to disconnect from technology, and engage with the physical world, specifically by being in nature or getting fresh air."
+        key="ogdesc"
+      />
+      <meta property="og:url" content="https://touchfreshgrass.com" key="ogurl" />
       <meta property="og:image" content="http://url.com/image.png" key="ogimage" />
       <meta property="og:image:url" content="http://url.com/image.png" />
       <meta property="og:image:type" content="image/png" />

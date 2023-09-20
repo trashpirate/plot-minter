@@ -15,9 +15,9 @@ contract TouchGrass is ERC20, Ownable {
     
     constructor(address _owner) ERC20("Touch Grass", "GRASS") {
         
-        uint256 _totalSupply = 1000000000 * 10 ** decimals();
+        uint256 _initialSupply = 1000000000 * 10 ** decimals();
 
-        _mint(_owner, _totalSupply);
+        _mint(_owner, _initialSupply);
         _transferOwnership(_owner);
     }
 }

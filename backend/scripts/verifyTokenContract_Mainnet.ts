@@ -5,7 +5,7 @@ dotenv.config();
 // run this script with hardhat: npx hardhat run ./scripts/verifyTokenContract_Mainnet.ts --network ETH_MAINNET
 
 const constructorArguments = [process.env.OWNER_ADDRESS];
-const contractAddress =  "0x5d82114044A3358A0491fC78a2CC055298005512";
+const contractAddress =  "0xbC68AE53d383f399Cc18268034C5E656fCb839f3";
 
 async function main() {
 

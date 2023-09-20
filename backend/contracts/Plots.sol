@@ -24,31 +24,9 @@ contract Plots is ERC721A, Ownable {
         feeAddress = _feeAddress;
         paymentToken = IERC20(_tokenAddress);
         _setBaseURI(
-            "ipfs://bafybeig3le2ov2af3bsausbauy22ypf2mq6q3vydqrwqr266gtdzrjyxeu/"
+            "ipfs://bafybeihmeu7c5lwnsie2busw77xxquff6e7txnzyy4vuo6fo3k3cnedpmi/"
         );
-        _setContractURI(
-            "ipfs://bafybeifazcaxrb4oqim36fzxl73wskqt6ora2p2ykhx2zggpmplvqisave/"
-        );
-    }
-
-    // contract uri
-    function contractURI() public view returns (string memory) {
-        return _contractURI;
-    }
-
-    // set new contract uri
-    function setContractURI(string calldata newContractURI) external onlyOwner {
-        _contractURI = newContractURI;
-    }
-
-    // set contract uri
-    function _setContractURI(string memory newContractURI) private {
-        _contractURI = newContractURI;
-    }
-
-    // set new base uri
-    function setBaseURI(string calldata baseURI) external onlyOwner {
-        _baseTokenURI = baseURI;
+   
     }
 
     // set base uri

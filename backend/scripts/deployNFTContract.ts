@@ -30,7 +30,7 @@ async function main() {
   const contract = await contractFactory.deploy(tokenContractAddress, feeAddress);
   await contract.waitForDeployment();
   const contractAddress = await contract.getAddress();
-  console.log(`Token contract deployed at ${contractAddress}`);
+  console.log(`NFT contract deployed at ${contractAddress}`);
 
   // wait for confirmations
   console.log(`Waiting for confirmations...`);
