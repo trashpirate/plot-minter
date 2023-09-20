@@ -187,9 +187,9 @@ describe("Tests for NFT contract", async () => {
     });
 
     it("reverts when maximum number of nfts exceeded", async () => {
-      const quantity = 3n;
+      const quantity = 2n;
       const nftRate = await nftContract.fee();
-      const paymentAmount = nftRate * quantity * 42n;
+      const paymentAmount = nftRate * quantity * 62n;
       
       for (let index = 0; index < 41; index++) {
         await tokenContract

@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/home/oates/projects/nft-minter/backend/contracts/Plots.sol": {
-      "lastModificationDate": 1695225395910,
-      "contentHash": "e3b175d19ac391d36ba9c1c722609df4",
+      "lastModificationDate": 1695244891503,
+      "contentHash": "ccb0756d3fe34ea951d9f558ab0dc711",
       "sourceName": "contracts/Plots.sol",
       "solcConfig": {
         "version": "0.8.19",

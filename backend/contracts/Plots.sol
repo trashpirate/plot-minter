@@ -7,8 +7,8 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract Plots is ERC721A, Ownable {
     uint256 public constant MAX_SUPPLY = 125;
-    uint256 public constant BATCH_LIMIT = 3;
-    uint256 public constant MAX_MINT_PER_WALLET = 3;
+    uint256 public constant BATCH_LIMIT = 2;
+    uint256 public constant MAX_MINT_PER_WALLET = 2;
 
     IERC20 public paymentToken;
     address public feeAddress;

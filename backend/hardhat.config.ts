@@ -16,7 +16,7 @@ const config: HardhatUserConfig = {
   networks: {
     hardhat: {
       accounts: {
-        count: 50,
+        count: 70,
       }
     },
     ARB_MAINNET: {
