@@ -1,5 +1,6 @@
 # files
-collection/*
+collection
+typechain-types
 
 # Logs
 logs

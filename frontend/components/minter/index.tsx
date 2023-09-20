@@ -9,8 +9,8 @@ import styles from "./minter.module.css";
 import { useState } from "react";
 import { parseUnits } from "viem";
 
-import nftJson from "../../artifacts/contracts/NFT.sol/NFT.json";
-import tokenJson from "../../artifacts/contracts/Token.sol/MyToken.json";
+import nftJson from "../../artifacts/contracts/Plots.sol/Plots.json";
+import tokenJson from "../../artifacts/contracts/TouchGrass.sol/TouchGrass.json";
 
 const NFT_CONTRACT = process.env.NEXT_PUBLIC_NFT_CONTRACT as `0x${string}`;
 const TOKEN_CONTRACT = process.env.NEXT_PUBLIC_TOKEN_CONTRACT as `0x${string}`;
@@ -22,7 +22,8 @@ export default function Minter() {
   const [transferAmount, setTransferAmount] = useState(parseUnits(`${nftFee}`, 18));
   const [approvedAmount, setApprovedAmount] = useState(parseUnits("0", 18));
 
-  // check alloance
+  //
+  // check allowance
   const { address, isConnecting, isDisconnected, isConnected } = useAccount();
   const {
     data: allowanceData,

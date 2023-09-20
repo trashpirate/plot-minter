@@ -8,7 +8,7 @@ dotenv.config();
 async function main() {
 
 const nftContractAddress = "0xB3c01d7FcAFc5bc548B74ad5b17091748e38056A";
-const newURI = "ipfs://bafybeigon7gjeqcw2ghjwkfyrw7yuzyunkca2dbjzscxzxaoc5tsiti7ke/";
+const newURI = "ipfs://bafybeifazcaxrb4oqim36fzxl73wskqt6ora2p2ykhx2zggpmplvqisave/contractMetadata.json";
 
   // define provider and deployer
   const provider = new ethers.JsonRpcProvider(
@@ -16,7 +16,7 @@ const newURI = "ipfs://bafybeigon7gjeqcw2ghjwkfyrw7yuzyunkca2dbjzscxzxaoc5tsiti7
   );
   
   const wallet = new ethers.Wallet(
-    process.env.PRIVATE_KEYS?.split(",")[0] ?? "",
+    process.env.PRIVATE_KEY ?? "",
     provider
   );
 
@@ -30,13 +30,13 @@ const newURI = "ipfs://bafybeigon7gjeqcw2ghjwkfyrw7yuzyunkca2dbjzscxzxaoc5tsiti7
   }
 
   // get nft contract
-  const contractFactory = new NFT__factory(wallet);
-  const nftContract = await contractFactory.attach(nftContractAddress) as NFT;
+  const contractFactory = new Plots__factory(wallet);
+  const nftContract = await contractFactory.attach(nftContractAddress) as Plots;
   const contractAddress = await nftContract.getAddress();
   console.log(`NFT contract deployed at ${contractAddress}`);
 
   // update uri
-  const updateTx = await nftContract.setBaseURI(newURI);
+  const updateTx = await nftContract.setContractURI(newURI);
   await updateTx.wait()
 
 }

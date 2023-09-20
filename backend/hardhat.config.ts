@@ -14,7 +14,11 @@ const config: HardhatUserConfig = {
     },
   },
   networks: {
-    hardhat: {},
+    hardhat: {
+      accounts: {
+        count: 50,
+      }
+    },
     ARB_MAINNET: {
       accounts: [`0x${process.env.PRIVATE_KEY}`],
       url: `https://arb-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
@@ -32,6 +36,14 @@ const config: HardhatUserConfig = {
       url: `https://eth-goerli.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
     },
     
+  },
+  gasReporter: {
+    outputFile: "gas-report.txt",
+    enabled: process.env.REPORT_GAS !== undefined,
+    currency: "USD",
+    noColors: true,
+    coinmarketcap: process.env.COINMARKETCAP_API_KEY || "",
+    token: "ETH",
   },
   etherscan: {
       apiKey: `${process.env.ETHERSCAN_API_KEY}`,

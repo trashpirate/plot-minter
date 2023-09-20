@@ -1,18 +1,15 @@
 import { ethers } from "ethers";
-import { Plots__factory } from "../typechain-types";
+import { TouchGrass__factory } from "../typechain-types";
 import * as dotenv from "dotenv";
 dotenv.config();
-
-const tokenContractAddress = "0x24D810964c578a9d543618E59CE5b96dc82323D2";
-const feeAddress = process.env.OWNER_ADDRESS_TEST as string;
 
 async function main() {
   // define provider and deployer
   const provider = new ethers.JsonRpcProvider(
-    process.env.RPC_ENDPOINT_URL ?? ""
+    process.env.RPC_ENDPOINT_URL_MAINNET ?? ""
   );
   const wallet = new ethers.Wallet(
-    process.env.PRIVATE_KEYS?.split(",")[0] ?? "",
+    process.env.DEPLOYER_PRIVATE_KEY ?? "",
     provider
   );
 
@@ -26,8 +23,10 @@ async function main() {
   }
 
   // deploy contract
-  const contractFactory = new Plots__factory(wallet);
-  const contract = await contractFactory.deploy(tokenContractAddress, feeAddress);
+  const owner = process.env.OWNER_ADDRESS as string;
+  
+  const contractFactory = new TouchGrass__factory(wallet);
+  const contract = await contractFactory.deploy(owner);
   await contract.waitForDeployment();
   const contractAddress = await contract.getAddress();
   console.log(`Token contract deployed at ${contractAddress}`);
@@ -41,7 +40,6 @@ async function main() {
   console.log(
     `Contract confirmed with ${WAIT_BLOCK_CONFIRMATIONS} confirmations.`
   );
-
 }
 
 main().catch((error) => {

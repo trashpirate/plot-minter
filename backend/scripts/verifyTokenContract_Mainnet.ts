@@ -1,26 +1,26 @@
-import { ethers } from "ethers";
 import * as hre from "hardhat";
-import { Plots, Plots__factory } from "../typechain-types";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-// run this script with hardhat: npx hardhat run ./scripts/verifyNFTContract.ts --network ETH_GOERLI
+// run this script with hardhat: npx hardhat run ./scripts/verifyTokenContract_Mainnet.ts --network ETH_MAINNET
 
-const constructorArguments = ["0x24D810964c578a9d543618E59CE5b96dc82323D2", process.env.OWNER_ADDRESS_TEST];
-const contractAddress =  "0xB3c01d7FcAFc5bc548B74ad5b17091748e38056A";
+const constructorArguments = [process.env.OWNER_ADDRESS];
+const contractAddress =  "0x5d82114044A3358A0491fC78a2CC055298005512";
 
 async function main() {
-  
+
   // verify contract
   console.log("Verifying contract on Etherscan...");
   if (constructorArguments != null) {
     await hre.run("verify:verify", {
       address: contractAddress,
       constructorArguments: constructorArguments,
+      contract: "contracts/TouchGrass.sol:TouchGrass"
     });
   } else {
     await hre.run("verify:verify", {
       address: contractAddress,
+      contract: "contracts/TouchGrass.sol:TouchGrass"
     });
   }
 }
