@@ -27,9 +27,9 @@ const config = createConfig(
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <title>Plot Minter</title>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta charSet="utf-8" />
+      <title>Plot Minter</title>
       <meta
         name="description"
         content="Plots are the way to disconnect from technology, and engage with the physical world, specifically by being in nature or getting fresh air."
@@ -39,8 +39,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <meta name="twitter:card" content="summary_large_image" key="twcard" />
       <meta name="twitter:creator" content="Touch Grass" key="twhandle" />
 
-      <meta property="og:title" content="Plots" key="ogtitle" />
-      <meta property="og:site_name" content="Plots" key="ogsitename" />
+      <meta property="og:title" content="Plot NFTs" key="ogtitle" />
+      <meta property="og:site_name" content="Plots Minter" key="ogsitename" />
       <meta
         property="og:description"
         content="Plots are the way to disconnect from technology, and engage with the physical world, specifically by being in nature or getting fresh air."
