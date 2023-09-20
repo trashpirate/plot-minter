@@ -15,19 +15,19 @@ const config = createConfig(
     chains: [goerli],
 
     // app name (required)
-    appName: "PLATs NFT Minting Website",
+    appName: "Plot Minter",
 
     // Optional
-    appDescription: "NFT Minting DApp",
-    appUrl: "https://family.co", // your app's url
-    appIcon: "https://family.co/logo.png", // your app's logo,no bigger than 1024x1024px (max. 1MB)
+    appDescription: "Plot Minter",
+    appUrl: "app.touchfreshgrass.com",
+    appIcon: "http://touchfreshgrass.com/wp-content/uploads/2023/09/cropped-cropped-image-1.png",
   })
 );
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <title>Plots</title>
+      <title>Plot Minter</title>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta charSet="utf-8" />
       <meta
@@ -46,9 +46,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         content="Plots are the way to disconnect from technology, and engage with the physical world, specifically by being in nature or getting fresh air."
         key="ogdesc"
       />
-      <meta property="og:url" content="https://touchfreshgrass.com" key="ogurl" />
-      <meta property="og:image" content="http://url.com/image.png" key="ogimage" />
-      <meta property="og:image:url" content="http://url.com/image.png" />
+      <meta property="og:url" content="https://app.touchfreshgrass.com" key="ogurl" />
+      <meta
+        property="og:image"
+        content="http://touchfreshgrass.com/wp-content/uploads/2023/09/009_red.png"
+        key="ogimage"
+      />
+      <meta
+        property="og:image:url"
+        content="http://touchfreshgrass.com/wp-content/uploads/2023/09/009_red.png"
+      />
       <meta property="og:image:type" content="image/png" />
       <WagmiConfig config={config}>
         <ConnectKitProvider mode="dark">
