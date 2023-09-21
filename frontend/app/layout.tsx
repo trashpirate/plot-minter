@@ -66,7 +66,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 display: "flex",
                 flexDirection: "column",
                 minHeight: "105vh",
-                backgroundImage: "url(website_bg_collage.png)",
+                backgroundImage: "url(website_bg_collage.jpg)",
                 backgroundSize: "cover",
                 backgroundPositionX: "center",
                 backgroundColor: "#000",

@@ -6,13 +6,14 @@ import {
   useWaitForTransaction,
 } from "wagmi";
 import styles from "./minter.module.css";
-import { useState } from "react";
+import React, { useCallback, useState } from "react";
 import Image from "next/image";
 
 import { formatEther, parseUnits } from "viem";
 
 import nftJson from "../../artifacts/contracts/Plots.sol/Plots.json";
 import tokenJson from "../../artifacts/contracts/TouchGrass.sol/TouchGrass.json";
+import { ConnectKitButton } from "connectkit";
 
 const NFT_CONTRACT = process.env.NEXT_PUBLIC_NFT_CONTRACT as `0x${string}`;
 const TOKEN_CONTRACT = process.env.NEXT_PUBLIC_TOKEN_CONTRACT as `0x${string}`;
@@ -23,13 +24,22 @@ export default function Minter() {
   const [nftAmount, setNFTAmount] = useState("1");
   const [transferAmount, setTransferAmount] = useState(parseUnits(`${nftFee}`, 18));
   const [approvedAmount, setApprovedAmount] = useState<bigint | null>(null);
-  const [nftMinted, setNftMinted] = useState<boolean>(false);
+  const [mintStarted, setMintStarted] = useState<boolean>(false);
+  const [connected, setConnected] = useState<boolean>(false);
 
   const [tokenBalance, setTokenBalance] = useState<number | null>(null);
   const [nftBalance, setNftBalance] = useState<number | null>(null);
 
   // get account address
-  const { address, isConnecting, isDisconnected, isConnected } = useAccount();
+  const { address, isConnecting, isDisconnected, isConnected } = useAccount({
+    onConnect({ address, connector, isReconnected }) {
+      setConnected(true);
+      setMintStarted(false);
+    },
+    onDisconnect() {
+      setConnected(false);
+    },
+  });
 
   // check balance
   const {
@@ -126,24 +136,31 @@ export default function Minter() {
   });
 
   function mintButton() {
-    if (tokenBalance != null && tokenBalance < nftFee) {
+    if (!connected) {
       return (
-        <button className={styles.button_inactive} disabled={true} onClick={() => {}}>
+        <div className={styles.connect}>
+          <ConnectKitButton />
+        </div>
+      );
+    } else if (tokenBalance != null && tokenBalance < nftFee) {
+      return (
+        <button className={styles.button_inactive} disabled={true} onClick={(e) => {}}>
           Insufficient Balance
         </button>
       );
     } else if (nftBalance != null && nftBalance >= 2) {
       return (
-        <button className={styles.button_inactive} disabled={true} onClick={() => {}}>
+        <button className={styles.button_inactive} disabled={true} onClick={(e) => {}}>
           Max. 2 NFTs/Wallet
         </button>
       );
-    } else if ((approvedAmount != null && approvedAmount < transferAmount) || isMintSuccess) {
+    } else if (approvedAmount != null && approvedAmount < transferAmount) {
       return (
         <button
           className={styles.button}
           disabled={!approve || approvalLoading}
-          onClick={() => {
+          onClick={(e) => {
+            setMintStarted(true);
             approve?.();
           }}
         >
@@ -155,7 +172,11 @@ export default function Minter() {
         <button
           className={styles.button_active}
           disabled={!mint || isMintLoading}
-          onClick={() => mint?.()}
+          onClick={(e) => {
+            setMintStarted(true);
+            mint?.();
+            setMintStarted(false);
+          }}
         >
           {isMintLoading ? "Minting..." : "MINT"}
         </button>
@@ -166,7 +187,7 @@ export default function Minter() {
   function successMessage() {
     if (approvalSuccess && !isMintSuccess && !isMintLoading) {
       return <div className={styles.message}>Now mint your NFTs!</div>;
-    } else if (isMintSuccess) {
+    } else if (isMintSuccess && !mintStarted) {
       return (
         <div className={styles.message}>
           Successfully Minted!

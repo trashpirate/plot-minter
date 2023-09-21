@@ -61,11 +61,14 @@
   border-radius: 5px;
 }
 
+.connect {
+  margin: 0 auto;
+}
 
 .button {
   margin: 5px auto;
-  padding: 2px 30px;
-  max-width: 200px;
+  /* padding: 2px 30px; */
+  width: 200px;
   height: 50px;
   background: rgba(78, 204, 151, 0.9);
   border-radius: 12px;
@@ -79,8 +82,8 @@
 
 .button_active {
   margin: 5px auto;
-  padding: 2px 10px;
-  max-width: 200px;
+  /* padding: 2px 15px; */
+  width: 200px;
   height: 50px;
   background: rgba(0, 228, 133, 0.9);
   border-radius: 12px;
@@ -94,8 +97,8 @@
 
 .button_inactive {
   margin: 5px auto;
-  padding: 2px 10px;
-  max-width: 200px;
+  /* padding: 2px 15px; */
+  width: 200px;
   height: 50px;
   background: rgba(133, 136, 135, 0.9);
   border-radius: 12px;
@@ -148,7 +151,7 @@
   font-weight: 300;
 }
 
-  .button {
+  /* .button {
     font-size: 16px;
     height: 40px;
     padding: 2px 15px;
@@ -162,5 +165,5 @@
     font-size: 16px;
     height: 40px;
     padding: 2px 15px;
-  }
+  } */
 }
