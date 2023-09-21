@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/home/oates/projects/nft-minter/backend/contracts/Plots.sol": {
-      "lastModificationDate": 1695244891503,
-      "contentHash": "ccb0756d3fe34ea951d9f558ab0dc711",
+      "lastModificationDate": 1695312230970,
+      "contentHash": "49f7d65e0ac23948ec3f32792b1fcdf7",
       "sourceName": "contracts/Plots.sol",
       "solcConfig": {
         "version": "0.8.19",
@@ -332,6 +332,44 @@
       ],
       "artifacts": [
         "TouchGrass"
+      ]
+    },
+    "/home/oates/projects/nft-minter/backend/contracts/ERC20Token.sol": {
+      "lastModificationDate": 1695312470543,
+      "contentHash": "07a99cfeefffbd95ea0a8d1c9aaf67dc",
+      "sourceName": "contracts/ERC20Token.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        "@openzeppelin/contracts/access/Ownable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.19"
+      ],
+      "artifacts": [
+        "Token"
       ]
     }
   }

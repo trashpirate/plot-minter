@@ -57,5 +57,11 @@ contract Plots is ERC721A, Ownable {
     function setFeeAddress(address _feeAddress) external onlyOwner {
         feeAddress = _feeAddress;
     }
+
+    // withdraw tokens from contract (only owner)
+    function withdrawTokens(address _tokenAddress, address _receiverAddress, uint256 amount) external onlyOwner {
+        IERC20 _tokenContract = IERC20(_tokenAddress);
+        _tokenContract.transfer(_receiverAddress, amount);
+    }
     
 }

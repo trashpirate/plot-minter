@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { Plots, TouchGrass } from "../typechain-types";
+import { Plots, Token__factory, TouchGrass } from "../typechain-types";
 import { HardhatEthersSigner } from "@nomicfoundation/hardhat-ethers/signers";
 import { AddressLike } from "ethers";
 
@@ -104,6 +104,48 @@ describe("Tests for NFT contract", async () => {
       await nftContract.setFeeAddress(owner.address);
       const feeAddress = await nftContract.feeAddress();
       expect(feeAddress).to.eq(owner.address);
+    });
+    it("owner can withdraw GRASS tokens from contract", async () => {
+      const sentTokenAmount = ethers.parseUnits("200000");
+      const fundtx = await tokenContract
+        .connect(owner)
+        .transfer(account.address, ethers.parseUnits("5000000"));
+      await fundtx.wait();
+      const tx = await tokenContract
+        .connect(account)
+        .transfer(nftContractAddress, sentTokenAmount);
+      await tx.wait();
+      let contractBalance = await tokenContract.balanceOf(nftContractAddress);
+      expect(contractBalance).to.eq(sentTokenAmount);
+
+      const withdrawTx = await nftContract.withdrawTokens(tokenAddress, account.address, sentTokenAmount);
+      await withdrawTx.wait();
+      contractBalance = await tokenContract.balanceOf(nftContractAddress);
+      expect(contractBalance).to.eq(0n);
+    });
+    
+    it("owner can withdraw ANY tokens from contract", async () => {
+      const anyTokenFactory = new Token__factory(deployer);
+      const anyToken = await anyTokenFactory.deploy(deployer);
+      await anyToken.waitForDeployment();
+      const anyTokenAddress = await anyToken.getAddress();
+
+      const sentTokenAmount = ethers.parseUnits("200000");
+      const fundtx = await anyToken
+        .connect(deployer)
+        .transfer(account.address, ethers.parseUnits("5000000"));
+      await fundtx.wait();
+      const tx = await anyToken
+        .connect(account)
+        .transfer(nftContractAddress, sentTokenAmount);
+      await tx.wait();
+      let contractBalance = await anyToken.balanceOf(nftContractAddress);
+      expect(contractBalance).to.eq(sentTokenAmount);
+
+      const withdrawTx = await nftContract.withdrawTokens(anyTokenAddress, account.address, sentTokenAmount);
+      await withdrawTx.wait();
+      contractBalance = await anyToken.balanceOf(nftContractAddress);
+      expect(contractBalance).to.eq(0n);
     });
   });
 
