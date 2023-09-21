@@ -4,7 +4,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 const tokenContractAddress = "0xbc68ae53d383f399cc18268034c5e656fcb839f3";
-const feeAddress = process.env.OWNER_ADDRESS as string;
+const feeAddress = process.env.FEE_ADDRESS as string;
 
 async function main() {
   // define provider and deployer

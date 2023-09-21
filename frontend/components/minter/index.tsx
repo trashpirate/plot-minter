@@ -1,12 +1,13 @@
 import {
   useAccount,
+  useContractEvent,
   useContractRead,
   useContractWrite,
   usePrepareContractWrite,
   useWaitForTransaction,
 } from "wagmi";
 import styles from "./minter.module.css";
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 
 import { formatEther, parseUnits } from "viem";
@@ -26,6 +27,7 @@ export default function Minter() {
   const [approvedAmount, setApprovedAmount] = useState<bigint | null>(null);
   const [mintStarted, setMintStarted] = useState<boolean>(false);
   const [connected, setConnected] = useState<boolean>(false);
+  const [tokenID, setTokenID] = useState<number | null>(null);
 
   const [tokenBalance, setTokenBalance] = useState<number | null>(null);
   const [nftBalance, setNftBalance] = useState<number | null>(null);
@@ -122,6 +124,9 @@ export default function Minter() {
     functionName: "mint",
     args: [BigInt(nftAmount)],
     enabled: approvedAmount != null && approvedAmount >= transferAmount,
+    onSuccess(data) {
+      console.log(data);
+    },
   });
   const {
     data: mintData,
@@ -135,6 +140,25 @@ export default function Minter() {
     hash: mintData?.hash,
   });
 
+  // watch for minting event
+  const unwatch = useContractEvent({
+    address: NFT_CONTRACT as `0x${string}`,
+    abi: nftJson.abi,
+    eventName: "Mint",
+    listener(log: any) {
+      // console.log(log);
+      // console.log(log[0].topics[2]);
+      // console.log(address);
+      // console.log(parseInt(log[0].topics[3], 16));
+      if (log[0].topics[2] === address) {
+        // console.log(parseInt(log[0].topics[3], 16));
+        setTokenID(parseInt(log[0].topics[3], 16));
+        // unwatch?.();
+      }
+    },
+  });
+
+  // button for minting
   function mintButton() {
     if (!connected) {
       return (
@@ -184,8 +208,9 @@ export default function Minter() {
     }
   }
 
+  // message after interaction
   function successMessage() {
-    if (approvalSuccess && !isMintSuccess && !isMintLoading) {
+    if (approvedAmount != null && approvedAmount >= transferAmount) {
       return <div className={styles.message}>Now mint your NFTs!</div>;
     } else if (isMintSuccess && !mintStarted) {
       return (
@@ -203,11 +228,12 @@ export default function Minter() {
     }
   }
 
+  // display image
   function setImageSrc() {
     if (isMintLoading) {
       return "/nftAnimation.gif";
     } else if (isMintSuccess) {
-      return "/featured_image.jpg";
+      return tokenID != null ? `/nfts/${tokenID}.png` : "/featured_image.jpg";
     } else {
       return "/logo.png";
     }
@@ -263,3 +289,7 @@ export default function Minter() {
     </div>
   );
 }
+function listReactFiles(__dirname: string) {
+  throw new Error("Function not implemented.");
+}
+
