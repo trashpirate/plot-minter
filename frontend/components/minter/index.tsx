@@ -178,19 +178,6 @@ export default function Minter() {
           Max. 2 NFTs/Wallet
         </button>
       );
-    } else if (approvedAmount != null && approvedAmount < transferAmount) {
-      return (
-        <button
-          className={styles.button}
-          disabled={!approve || approvalLoading}
-          onClick={(e) => {
-            setMintStarted(true);
-            approve?.();
-          }}
-        >
-          {approvalLoading ? "Approving..." : "MINT"}
-        </button>
-      );
     } else if (approvedAmount != null && approvedAmount >= transferAmount) {
       return (
         <button
@@ -203,6 +190,19 @@ export default function Minter() {
           }}
         >
           {isMintLoading ? "Minting..." : "MINT"}
+        </button>
+      );
+    } else {
+      return (
+        <button
+          className={styles.button}
+          disabled={!approve || approvalLoading}
+          onClick={(e) => {
+            setMintStarted(true);
+            approve?.();
+          }}
+        >
+          {approvalLoading ? "Approving..." : "MINT"}
         </button>
       );
     }
