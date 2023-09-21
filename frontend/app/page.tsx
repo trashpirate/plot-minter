@@ -1,5 +1,4 @@
-'use client'
-import Image from "next/image";
+"use client";
 import styles from "./page.module.css";
 import "./globals.css";
 import Minter from "@/components/minter";
