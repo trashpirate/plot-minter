@@ -12,8 +12,8 @@ const config = createConfig(
     walletConnectProjectId: "ab7caa5f024ff5ca7742d7123656f4c5",
 
     // configured chain
-    chains: [goerli],
-    // chains: [mainnet],
+    // chains: [goerli],
+    chains: [mainnet],
 
     // app name (required)
     appName: "Plot Minter",
