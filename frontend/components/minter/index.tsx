@@ -202,9 +202,9 @@ export default function Minter() {
           height={300}
           alt="Plot NFTs"
           style={{
-            width: "90%",
+            width: "100%",
             height: "auto",
-            margin: "1rem auto 3rem auto",
+            margin: "0 auto 3rem auto",
             borderRadius: "10px",
           }}
         />
@@ -215,7 +215,7 @@ export default function Minter() {
 
       <div className={styles.account_info}>
         <h2>Account Info</h2>
-        <div>{`Balance: ${tokenBalance} $GRASS`}</div>
+        <div>{`Balance: ${tokenBalance ? tokenBalance.toFixed(0) : "0"} $GRASS`}</div>
         <div>{`NFTs minted: ${nftBalance}`}</div>
       </div>
 

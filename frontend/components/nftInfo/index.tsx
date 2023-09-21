@@ -42,7 +42,6 @@ export default function NFTInfo() {
   // render component
   return (
     <div className={styles.container}>
-      <p>{NFT_CONTRACT}</p>
       {/* <Image
         src="/logo.png"
         width={150}

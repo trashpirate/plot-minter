@@ -6,7 +6,7 @@ export default function Navbar() {
   return (
     <nav className={styles.navbar}>
       <a className={styles.home_button} href="https://touchfreshgrass.com/" target={"_blank"}>
-        <p>Home</p>
+        <p>Touch Grass</p>
       </a>
       <ConnectKitButton />
     </nav>
