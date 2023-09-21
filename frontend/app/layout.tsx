@@ -66,9 +66,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 display: "flex",
                 flexDirection: "column",
                 minHeight: "105vh",
-                backgroundImage: "url(website_bg.jpg)",
+                backgroundImage: "url(website_bg_collage.png)",
                 backgroundSize: "cover",
                 backgroundPositionX: "center",
+                backgroundColor: "#000",
               }}
             >
               <Navbar />
