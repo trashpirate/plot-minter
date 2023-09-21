@@ -263,7 +263,7 @@ export default function Minter() {
       <div className={styles.account_info}>
         <h2>Account Info</h2>
         <div>{`Balance: ${tokenBalance ? tokenBalance.toFixed(0) : "0"} $GRASS`}</div>
-        <div>{`NFTs minted: ${nftBalance}`}</div>
+        <div>{`NFTs minted: ${nftBalance != null ? nftBalance : 0}`}</div>
       </div>
 
       <div className={styles.container_mint}>
