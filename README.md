@@ -1,4 +1,4 @@
-# plot-minter
+# Plot Minter 🌾
 ![Version](https://img.shields.io/badge/version-1.1.0-blue.svg?cacheSeconds=2592000)
 ![Static Badge](https://img.shields.io/badge/node-v9.8.1-blue)
 ![Static Badge](https://img.shields.io/badge/npm-v18.17.0-blue)
