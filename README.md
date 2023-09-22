@@ -10,10 +10,10 @@
 
 > **Plot Minter** is a NFT minting DApp for the crypto project **[Touch Grass](https://touchfreshgrass.com/)** including smart contracts based on ERC721A and ERC20 standard. Touch Grass ($GRASS) was created to encourage disconnection from technology, and engage with the physical world, specifically by being in nature or getting fresh air. The ERC20 token $GRASS was launched on 9/20/2023. The NFT collection **Plots**, viewable also on [OpenSea](https://opensea.io/collection/tgplots) includes 125 pieces of artwork created using Midjourney showing hands touch grass. There are 4 categories - green (100), blue (10), red (10), and purple (5). 1 Million $GRASS tokens are required to mint a PLOT. Plots give holders access to unique membership opportunities (access to whitelists, events, etc.).
 
-**Token Contract: Touch Grass ($GRASS)**
+**Token Contract: Touch Grass ($GRASS)**  
 https://etherscan.io/token/0xbc68ae53d383f399cc18268034c5e656fcb839f3#code
 
-**NFT Contract: Plots (PLOT)**
+**NFT Contract: Plots (PLOT)**  
 https://etherscan.io/address/0x8C9eAD5e40EddC7F8EfA6ee3f1B9d40e37B8cABc#code
 
 ### ✨ [Launch DApp](https://app.touchfresh.com)
