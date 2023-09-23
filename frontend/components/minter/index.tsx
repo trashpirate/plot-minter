@@ -161,14 +161,7 @@ export default function Minter() {
 
   // button for minting
   function mintButton() {
-    if (mintOpen == "false") {
-      return (
-        <>
-          <h2>Plots NFT Collection Mint</h2>
-          <h3>SEPTEMBER 28 | 1PM CST</h3>
-        </>
-      );
-    } else if (!connected && mintOpen) {
+    if (!connected && mintOpen) {
       return (
         <div className={styles.connect}>
           <ConnectKitButton />
@@ -268,32 +261,42 @@ export default function Minter() {
         </div>
       </div>
 
-      <div className={styles.account_info}>
-        <h2>Account Info</h2>
-        <div>{`Balance: ${tokenBalance ? tokenBalance.toFixed(0) : "0"} $GRASS`}</div>
-        <div>{`NFTs minted: ${nftBalance != null ? nftBalance : 0}`}</div>
-      </div>
+      {mintOpen == "true" && (
+        <div className={styles.account_info}>
+          <h2>Account Info</h2>
+          <div>{`Balance: ${tokenBalance ? tokenBalance.toFixed(0) : "0"} $GRASS`}</div>
+          <div>{`NFTs minted: ${nftBalance != null ? nftBalance : 0}`}</div>
+        </div>
+      )}
 
-      <div className={styles.container_mint}>
-        <form className={styles.form}>
-          <label>
-            Enter number of NFTs:
-            <input
-              type="number"
-              value={nftAmount}
-              max="3"
-              min="1"
-              placeholder="1"
-              onChange={(e) => {
-                setNFTAmount(e.target.value);
-                setTransferAmount(parseUnits(`${Number(e.target.value) * nftFee}`, 18));
-              }}
-            />
-          </label>
-        </form>
-        {mintButton()}
-        {successMessage()}
-      </div>
+      {mintOpen == "true" && (
+        <div className={styles.container_mint}>
+          <form className={styles.form}>
+            <label>
+              Enter number of NFTs:
+              <input
+                type="number"
+                value={nftAmount}
+                max="3"
+                min="1"
+                placeholder="1"
+                onChange={(e) => {
+                  setNFTAmount(e.target.value);
+                  setTransferAmount(parseUnits(`${Number(e.target.value) * nftFee}`, 18));
+                }}
+              />
+            </label>
+          </form>
+          {mintButton()}
+          {successMessage()}
+        </div>
+      )}
+      {mintOpen == "false" && (
+        <div className={styles.container_mint}>
+          <h2>Plots NFT Collection Mint</h2>
+          <h3>SEPTEMBER 28 | 1PM CST</h3>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,15 +1,18 @@
 import { ethers } from "ethers";
-import { TouchGrass__factory } from "../typechain-types";
+import { Plots__factory } from "../../typechain-types";
 import * as dotenv from "dotenv";
 dotenv.config();
+
+const tokenContractAddress = "0xbc68ae53d383f399cc18268034c5e656fcb839f3";
+const feeAddress = process.env.FEE_ADDRESS as string;
 
 async function main() {
   // define provider and deployer
   const provider = new ethers.JsonRpcProvider(
-    process.env.RPC_ENDPOINT_URL ?? ""
+    process.env.RPC_ENDPOINT_URL_MAINNET ?? ""
   );
   const wallet = new ethers.Wallet(
-    process.env.PRIVATE_KEY ?? "",
+    process.env.DEPLOYER_PRIVATE_KEY ?? "",
     provider
   );
 
@@ -23,13 +26,11 @@ async function main() {
   }
 
   // deploy contract
-  const owner = process.env.OWNER_ADDRESS_TEST as string;
-  
-  const contractFactory = new TouchGrass__factory(wallet);
-  const contract = await contractFactory.deploy(owner);
+  const contractFactory = new Plots__factory(wallet);
+  const contract = await contractFactory.deploy(tokenContractAddress, feeAddress);
   await contract.waitForDeployment();
   const contractAddress = await contract.getAddress();
-  console.log(`Token contract deployed at ${contractAddress}`);
+  console.log(`NFT contract deployed at ${contractAddress}`);
 
   // wait for confirmations
   console.log(`Waiting for confirmations...`);
@@ -40,6 +41,7 @@ async function main() {
   console.log(
     `Contract confirmed with ${WAIT_BLOCK_CONFIRMATIONS} confirmations.`
   );
+
 }
 
 main().catch((error) => {

@@ -1,16 +1,21 @@
 import { ethers } from "ethers";
-import { Plots__factory } from "../typechain-types";
 import * as dotenv from "dotenv";
+import {Plots, Plots__factory} from "../../typechain-types";
 dotenv.config();
 
-const tokenContractAddress = "0xbc68ae53d383f399cc18268034c5e656fcb839f3";
-const feeAddress = process.env.FEE_ADDRESS as string;
+
 
 async function main() {
+
+  const nftContractAddress = "0x8C9eAD5e40EddC7F8EfA6ee3f1B9d40e37B8cABc";
+  const newFee = ethers.parseUnits("500000000")
+  console.log(newFee)
+
   // define provider and deployer
   const provider = new ethers.JsonRpcProvider(
     process.env.RPC_ENDPOINT_URL_MAINNET ?? ""
   );
+  
   const wallet = new ethers.Wallet(
     process.env.DEPLOYER_PRIVATE_KEY ?? "",
     provider
@@ -25,23 +30,16 @@ async function main() {
     throw new Error("Not enough ether");
   }
 
-  // deploy contract
+  // get nft contract
   const contractFactory = new Plots__factory(wallet);
-  const contract = await contractFactory.deploy(tokenContractAddress, feeAddress);
-  await contract.waitForDeployment();
-  const contractAddress = await contract.getAddress();
+  const nftContract = await contractFactory.attach(nftContractAddress) as Plots;
+  const contractAddress = await nftContract.getAddress();
   console.log(`NFT contract deployed at ${contractAddress}`);
 
-  // wait for confirmations
-  console.log(`Waiting for confirmations...`);
-  const WAIT_BLOCK_CONFIRMATIONS = 2;
-  const deploymentReceipt = await contract
-    .deploymentTransaction()
-    ?.wait(WAIT_BLOCK_CONFIRMATIONS);
-  console.log(
-    `Contract confirmed with ${WAIT_BLOCK_CONFIRMATIONS} confirmations.`
-  );
-
+  // update fee
+  const updateTx = await nftContract.setFee(newFee);
+  const receipt = await updateTx.wait()
+  console.log(receipt)
 }
 
 main().catch((error) => {
