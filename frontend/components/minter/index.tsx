@@ -20,6 +20,7 @@ const NFT_CONTRACT = process.env.NEXT_PUBLIC_NFT_CONTRACT as `0x${string}`;
 const TOKEN_CONTRACT = process.env.NEXT_PUBLIC_TOKEN_CONTRACT as `0x${string}`;
 const NETWORK_SCAN = process.env.NEXT_PUBLIC_NETWORK_SCAN;
 const nftFee = 1000000;
+const mintOpen = process.env.NEXT_PUBLIC_MINT_OPEN as string;
 
 export default function Minter() {
   const [nftAmount, setNFTAmount] = useState("1");
@@ -160,7 +161,14 @@ export default function Minter() {
 
   // button for minting
   function mintButton() {
-    if (!connected) {
+    if (mintOpen == "false") {
+      return (
+        <>
+          <h2>Plots NFT Collection Mint</h2>
+          <h3>SEPTEMBER 28 | 1PM CST</h3>
+        </>
+      );
+    } else if (!connected && mintOpen) {
       return (
         <div className={styles.connect}>
           <ConnectKitButton />

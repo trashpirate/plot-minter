@@ -11,12 +11,8 @@ import { useState } from "react";
 import Image from "next/image";
 
 import nftJson from "../../artifacts/contracts/Plots.sol/Plots.json";
-import tokenJson from "../../artifacts/contracts/TouchGrass.sol/TouchGrass.json";
 
 const NFT_CONTRACT = process.env.NEXT_PUBLIC_NFT_CONTRACT as `0x${string}`;
-const TOKEN_CONTRACT = process.env.NEXT_PUBLIC_TOKEN_CONTRACT as `0x${string}`;
-const NETWORK_SCAN = process.env.NEXT_PUBLIC_NETWORK_SCAN;
-const nftFee = 1000000;
 
 export default function NFTInfo() {
   const [totalSupply, setTotalSupply] = useState<number | null>(null);
