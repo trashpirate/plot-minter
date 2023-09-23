@@ -15,6 +15,8 @@ import { formatEther, parseUnits } from "viem";
 import nftJson from "../../artifacts/contracts/Plots.sol/Plots.json";
 import tokenJson from "../../artifacts/contracts/TouchGrass.sol/TouchGrass.json";
 import { ConnectKitButton } from "connectkit";
+import NFTInfo from "../nftInfo";
+import MediaQuery from "react-responsive";
 
 const NFT_CONTRACT = process.env.NEXT_PUBLIC_NFT_CONTRACT as `0x${string}`;
 const TOKEN_CONTRACT = process.env.NEXT_PUBLIC_TOKEN_CONTRACT as `0x${string}`;
@@ -260,43 +262,51 @@ export default function Minter() {
           <h3>Price: 1M $GRASS</h3>
         </div>
       </div>
+      <div className={styles.mint_info}>
+        <MediaQuery minDeviceWidth={1000}>
+          <NFTInfo></NFTInfo>
+        </MediaQuery>
 
-      {mintOpen == "true" && (
-        <div className={styles.account_info}>
-          <h2>Account Info</h2>
-          <div>{`Balance: ${tokenBalance ? tokenBalance.toFixed(0) : "0"} $GRASS`}</div>
-          <div>{`NFTs minted: ${nftBalance != null ? nftBalance : 0}`}</div>
-        </div>
-      )}
+        {mintOpen == "true" && (
+          <div className={styles.account_info}>
+            <h2>Account Info</h2>
+            <div className={styles.horizontal_line}></div>
+            <div className={styles.account_balances}>
+              <div>{`Balance: ${tokenBalance ? tokenBalance.toFixed(0) : "0"} $GRASS`}</div>
+              <div>{`NFTs minted: ${nftBalance != null ? nftBalance : 0}`}</div>
+            </div>
+          </div>
+        )}
 
-      {mintOpen == "true" && (
-        <div className={styles.container_mint}>
-          <form className={styles.form}>
-            <label>
-              Enter number of NFTs:
-              <input
-                type="number"
-                value={nftAmount}
-                max="3"
-                min="1"
-                placeholder="1"
-                onChange={(e) => {
-                  setNFTAmount(e.target.value);
-                  setTransferAmount(parseUnits(`${Number(e.target.value) * nftFee}`, 18));
-                }}
-              />
-            </label>
-          </form>
-          {mintButton()}
-          {successMessage()}
-        </div>
-      )}
-      {mintOpen == "false" && (
-        <div className={styles.container_mint}>
-          <h2>Plots NFT Collection Mint</h2>
-          <h3>SEPTEMBER 28 | 1PM CST</h3>
-        </div>
-      )}
+        {mintOpen == "true" && (
+          <div className={styles.container_mint}>
+            <form className={styles.form}>
+              <label>
+                Enter number of NFTs:
+                <input
+                  type="number"
+                  value={nftAmount}
+                  max="3"
+                  min="1"
+                  placeholder="1"
+                  onChange={(e) => {
+                    setNFTAmount(e.target.value);
+                    setTransferAmount(parseUnits(`${Number(e.target.value) * nftFee}`, 18));
+                  }}
+                />
+              </label>
+            </form>
+            {mintButton()}
+            {successMessage()}
+          </div>
+        )}
+        {mintOpen == "false" && (
+          <div className={styles.container_mint}>
+            <h2>Plots NFT Collection Mint</h2>
+            <h3>SEPTEMBER 28 | 1PM CST</h3>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

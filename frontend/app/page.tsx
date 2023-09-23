@@ -3,6 +3,7 @@ import styles from "./page.module.css";
 import "./globals.css";
 import Minter from "@/components/minter";
 import NFTInfo from "@/components/nftInfo";
+import MediaQuery from "react-responsive";
 
 export default function Home() {
   return (
@@ -18,7 +19,9 @@ export default function Home() {
           </div>
         </header>
         <div>
-          <NFTInfo></NFTInfo>
+          <MediaQuery maxDeviceWidth={1000}>
+            <NFTInfo></NFTInfo>
+          </MediaQuery>
           <Minter></Minter>
         </div>
       </div>
