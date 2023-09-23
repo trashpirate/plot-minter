@@ -12,9 +12,16 @@
     padding: 3rem 1rem;
 	margin: 0 auto;
 	width: 95%;
-	max-width: 600px;
+	
 	background-color: rgba(155, 255, 213, 0.7);
 	border-radius: 20px;
+}
+
+.container_minting{
+
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
 }
 
 .header_container{
@@ -42,4 +49,10 @@
 	background: linear-gradient(140deg, rgba(54,190,255,1) 0%, rgba(115,63,241,1) 100%);
 	background-clip: text;
 	color: transparent;
+}
+
+@media only screen and (max-width: 1000px){
+.container {
+	max-width: 600px;
+}
 }
