@@ -5,15 +5,15 @@
   text-align: center;
   justify-self: center;
   margin: 20px auto;
-  max-width: 1000px;
+  max-width: 1150px;
 }
 
 .container{
-    padding: 3rem 1rem;
+    padding: 3rem 1rem 1rem 1rem;
 	margin: 0 auto;
 	width: 95%;
 	
-	background-color: rgba(155, 255, 213, 0.7);
+	background-color: rgba(155, 255, 213, 0.5);
 	border-radius: 20px;
 }
 
@@ -42,7 +42,7 @@
 
 }
 .header_container h3{
-    color: rgba(2, 59, 47, 0.726);
+    color: rgb(2, 37, 30);
 }
 
 .header_container h1 span{
@@ -55,4 +55,5 @@
 .container {
 	max-width: 600px;
 }
+
 }

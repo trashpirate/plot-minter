@@ -5,9 +5,9 @@
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
-	padding: 2rem 1rem 0.8rem 1rem;
+	padding: 2rem 1rem 1rem 1rem;
 	gap: 2rem;
-	max-width: 800px;
+	max-width: 1100px;
 	margin: 0 auto 0 auto;
 }
 
@@ -32,8 +32,23 @@
 	margin: auto;
 	font-weight: 400;
 }
+.buy_button {
+	display: flex;
+	background-color: rgb(55, 228, 170);
+	color: rgb(2, 39, 27);
+	padding: 5px 15px;
+	border-radius: 12px;
+	height: 40px;
+	text-align: center;
+	vertical-align: middle;
+}
 
-@media only screen and (max-width: 360px) {
+.buy_button p {
+	margin: auto;
+	font-weight: 700;
+}
+
+@media only screen and (max-width: 520px) {
 	.navbar {
 	display: flex;
 	flex-direction: column-reverse;
