@@ -3,7 +3,10 @@ import styles from "./page.module.css";
 import "./globals.css";
 import Minter from "@/components/minter";
 import NFTInfo from "@/components/nftInfo";
-import MediaQuery from "react-responsive";
+import dynamic from "next/dynamic";
+const MediaQuery = dynamic(() => import("react-responsive"), {
+  ssr: false,
+});
 
 export default function Home() {
   return (

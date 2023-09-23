@@ -16,7 +16,10 @@ import nftJson from "../../artifacts/contracts/Plots.sol/Plots.json";
 import tokenJson from "../../artifacts/contracts/TouchGrass.sol/TouchGrass.json";
 import { ConnectKitButton } from "connectkit";
 import NFTInfo from "../nftInfo";
-import MediaQuery from "react-responsive";
+import dynamic from "next/dynamic";
+const MediaQuery = dynamic(() => import("react-responsive"), {
+  ssr: false,
+});
 
 const NFT_CONTRACT = process.env.NEXT_PUBLIC_NFT_CONTRACT as `0x${string}`;
 const TOKEN_CONTRACT = process.env.NEXT_PUBLIC_TOKEN_CONTRACT as `0x${string}`;
@@ -254,7 +257,7 @@ export default function Minter() {
           style={{
             width: "100%",
             height: "auto",
-            margin: "0 auto 3rem auto",
+            margin: "0 auto auto auto",
             borderRadius: "10px",
           }}
         />
@@ -263,9 +266,7 @@ export default function Minter() {
         </div>
       </div>
       <div className={styles.mint_info}>
-        <MediaQuery minDeviceWidth={1000}>
-          <NFTInfo></NFTInfo>
-        </MediaQuery>
+        <MediaQuery minDeviceWidth={1000}>{<NFTInfo></NFTInfo>}</MediaQuery>
 
         {mintOpen == "true" && (
           <div className={styles.account_info}>
