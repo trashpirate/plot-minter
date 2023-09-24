@@ -46,6 +46,7 @@ contract Plots is ERC721A, Ownable {
         require(balanceOf(msg.sender) + quantity <= MAX_MINT_PER_WALLET , "Exceeds max per wallet.");
         paymentToken.transferFrom(msg.sender, feeAddress, fee * quantity);
         _mint(msg.sender, quantity);
+        // reverse: first mint so its checks-effects-interactions (CEI) pattern
     }
 
     // set fee (only owner)
@@ -63,5 +64,7 @@ contract Plots is ERC721A, Ownable {
         IERC20 _tokenContract = IERC20(_tokenAddress);
         _tokenContract.transfer(_receiverAddress, amount);
     }
+    
+    // withdraw ether: TODO
     
 }

@@ -48,7 +48,7 @@ const config: HardhatUserConfig = {
   etherscan: {
       apiKey: `${process.env.ETHERSCAN_API_KEY}`,
     },
-  paths: { tests: "tests", artifacts: "../frontend/artifacts" },
+  paths: { tests: "tests", artifacts: "artifacts" },
 };
 
 task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
