@@ -12,8 +12,8 @@ import Image from "next/image";
 
 import { formatEther, parseUnits } from "viem";
 
-import nftJson from "../../artifacts/contracts/Plots.sol/Plots.json";
-import tokenJson from "../../artifacts/contracts/TouchGrass.sol/TouchGrass.json";
+import { nftABI } from "../../assets/nftABI";
+import { tokenABI } from "../../assets/tokenABI";
 import { ConnectKitButton } from "connectkit";
 import NFTInfo from "../nftInfo";
 import dynamic from "next/dynamic";
@@ -57,7 +57,7 @@ export default function Minter() {
     isSuccess: tokenBalanceSuccess,
   } = useContractRead({
     address: TOKEN_CONTRACT,
-    abi: tokenJson.abi,
+    abi: tokenABI,
     functionName: "balanceOf",
     args: [address as `0x${string}`],
     enabled: address != null,
@@ -75,7 +75,7 @@ export default function Minter() {
     isSuccess: nftBalanceSuccess,
   } = useContractRead({
     address: NFT_CONTRACT,
-    abi: tokenJson.abi,
+    abi: tokenABI,
     functionName: "balanceOf",
     args: [address as `0x${string}`],
     enabled: address != null,
@@ -93,7 +93,7 @@ export default function Minter() {
     isSuccess: allowanceSuccess,
   } = useContractRead({
     address: TOKEN_CONTRACT,
-    abi: tokenJson.abi,
+    abi: tokenABI,
     functionName: "allowance",
     args: [address as `0x${string}`, NFT_CONTRACT],
     enabled: address != null,
@@ -106,7 +106,7 @@ export default function Minter() {
   // approving funds
   const { config: approvalConfig } = usePrepareContractWrite({
     address: TOKEN_CONTRACT as `0x${string}`,
-    abi: tokenJson.abi,
+    abi: tokenABI,
     functionName: "approve",
     args: [NFT_CONTRACT, transferAmount],
     enabled: approvedAmount != null && approvedAmount < transferAmount,
@@ -126,7 +126,7 @@ export default function Minter() {
   // mint nfts
   const { config: mintConfig } = usePrepareContractWrite({
     address: NFT_CONTRACT as `0x${string}`,
-    abi: nftJson.abi,
+    abi: nftABI,
     functionName: "mint",
     args: [BigInt(nftAmount)],
     enabled: approvedAmount != null && approvedAmount >= transferAmount,
@@ -149,8 +149,8 @@ export default function Minter() {
   // watch for minting event
   const unwatch = useContractEvent({
     address: NFT_CONTRACT as `0x${string}`,
-    abi: nftJson.abi,
-    eventName: "Mint",
+    abi: nftABI,
+    eventName: "Approval",
     listener(log: any) {
       // console.log(log);
       // console.log(log[0].topics[2]);
