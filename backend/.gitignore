@@ -75,3 +75,8 @@ package-lock.json
 yarn.lock
 
 templates/evm/core/pages/api
+
+
+# solidity
+cache
+artifacts
