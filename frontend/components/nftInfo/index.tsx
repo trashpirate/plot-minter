@@ -10,7 +10,7 @@ import { useState } from "react";
 // import { CopyToClipboard } from "react-copy-to-clipboard";
 import Image from "next/image";
 
-import nftJson from "../../artifacts/contracts/Plots.sol/Plots.json";
+import { nftABI } from "../../assets/nftABI";
 
 const NFT_CONTRACT = process.env.NEXT_PUBLIC_NFT_CONTRACT as `0x${string}`;
 
@@ -26,7 +26,7 @@ export default function NFTInfo() {
     isSuccess: totalSupplySuccess,
   } = useContractRead({
     address: NFT_CONTRACT,
-    abi: nftJson.abi,
+    abi: nftABI,
     functionName: "totalSupply",
     watch: true,
     onSuccess(data) {
