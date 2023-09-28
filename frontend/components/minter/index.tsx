@@ -288,7 +288,7 @@ export default function Minter() {
                 <input
                   type="number"
                   value={nftAmount}
-                  max="3"
+                  max="2"
                   min="1"
                   placeholder="1"
                   onChange={(e) => {
