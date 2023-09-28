@@ -27,6 +27,7 @@ const NETWORK_SCAN = process.env.NEXT_PUBLIC_NETWORK_SCAN;
 const nftFee = 1000000;
 const mintOpen = process.env.NEXT_PUBLIC_MINT_OPEN as string;
 
+
 export default function Minter() {
   const [nftAmount, setNFTAmount] = useState("1");
   const [transferAmount, setTransferAmount] = useState(parseUnits(`${nftFee}`, 18));

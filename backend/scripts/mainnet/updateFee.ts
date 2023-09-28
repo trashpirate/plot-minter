@@ -8,7 +8,7 @@ dotenv.config();
 async function main() {
 
   const nftContractAddress = "0x8C9eAD5e40EddC7F8EfA6ee3f1B9d40e37B8cABc";
-  const newFee = ethers.parseUnits("500000000")
+  const newFee = ethers.parseUnits("1000000")
   console.log(newFee)
 
   // define provider and deployer
