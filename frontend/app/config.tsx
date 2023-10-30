@@ -8,19 +8,18 @@ export default function getWagmiConfig(useTest: string) {
       getDefaultConfig({
         // API Keys
         alchemyId: process.env.ALCHEMY_API_KEY,
-        walletConnectProjectId: "ab7caa5f024ff5ca7742d7123656f4c5",
+        walletConnectProjectId: process.env.NEXT_PUBLIC_PROJECT_ID as string,
 
         // configured chain
-        // chains: [goerli],
         chains: [goerli],
 
         // app name (required)
-        appName: "Plot Minter",
+        appName: process.env.NEXT_PUBLIC_PROJECT_NAME as string,
 
         // Optional
-        appDescription: "Plot Minter",
-        appUrl: "app.touchfreshgrass.com",
-        appIcon: "http://app.touchfreshgrass.com/logo.png",
+        appDescription: process.env.NEXT_PUBLIC_PROJECT_DESCRIPTION as string,
+        appUrl: process.env.NEXT_PUBLIC_PROJECT_URL as string,
+        appIcon: process.env.NEXT_PUBLIC_PROJECT_LOGO as string,
       })
     );
 
@@ -30,20 +29,19 @@ export default function getWagmiConfig(useTest: string) {
       getDefaultConfig({
         // API Keys
         alchemyId: process.env.ALCHEMY_API_KEY,
-        walletConnectProjectId: "ab7caa5f024ff5ca7742d7123656f4c5",
+        walletConnectProjectId: process.env.NEXT_PUBLIC_PROJECT_ID as string,
 
         // configured chain
         // chains: [goerli],
         chains: [mainnet],
 
         // app name (required)
-        appName: "Plot Minter",
+        appName: process.env.NEXT_PUBLIC_PROJECT_NAME as string,
 
         // Optional
-        appDescription: "Plot Minter",
-        appUrl: "app.touchfreshgrass.com",
-        appIcon:
-          "http://touchfreshgrass.com/wp-content/uploads/2023/09/cropped-cropped-image-1.png",
+        appDescription: process.env.NEXT_PUBLIC_PROJECT_DESCRIPTION as string,
+        appUrl: process.env.NEXT_PUBLIC_PROJECT_URL as string,
+        appIcon: process.env.NEXT_PUBLIC_PROJECT_LOGO as string,
       })
     );
     return { config: wagmiConfig };

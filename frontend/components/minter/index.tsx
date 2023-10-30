@@ -189,7 +189,6 @@ export default function Minter() {
           className={styles.button_active}
           disabled={!mint || isMintLoading}
           onClick={(e) => {
-            console.log("clicked");
             mint?.();
           }}
         >
@@ -301,7 +300,7 @@ export default function Minter() {
         {!mintOpen && (
           <div className={styles.container_mint}>
             <h2>Plots NFT Collection Mint</h2>
-            <h3>SEPTEMBER 28 | 1PM CST</h3>
+            <h3>NOVEMBER 1 | 1PM CST</h3>
           </div>
         )}
       </div>

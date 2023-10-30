@@ -4,6 +4,7 @@ import { Providers } from "./providers";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://app.touchfreshgrass.com"),
   title: "Plot NFTs",
   description:
     "Plots are the way to disconnect from technology, and engage with the physical world, specifically by being in nature or getting fresh air.",
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "https://app.touchfreshgrass.com",
-    title: "Play-2-EARN",
+    title: "Plots Minter",
     description:
       "Plots are the way to disconnect from technology, and engage with the physical world, specifically by being in nature or getting fresh air.",
     siteName: "Plots Minter",

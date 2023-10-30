@@ -1,13 +1,12 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
 
-module.exports = nextConfig;
-
-module.exports = {
+const nextConfig = {
   reactStrictMode: false,
   webpack: (config) => {
-    config.resolve.fallback = { fs: false, net: false };
+    config.resolve.fallback = { fs: false, net: false, tls: false };
+    config.externals.push("pino-pretty", "lokijs", "encoding");
     return config;
   },
 };
 
+module.exports = nextConfig;
