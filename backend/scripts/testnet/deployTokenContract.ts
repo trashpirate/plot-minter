@@ -6,7 +6,7 @@ dotenv.config();
 async function main() {
   // define provider and deployer
   const provider = new ethers.JsonRpcProvider(
-    process.env.RPC_ENDPOINT_URL ?? ""
+    process.env.RPC_ENDPOINT_URL_TESTNET ?? ""
   );
   const wallet = new ethers.Wallet(
     process.env.PRIVATE_KEY ?? "",
@@ -23,7 +23,7 @@ async function main() {
   }
 
   // deploy contract
-  const owner = process.env.OWNER_ADDRESS_TEST as string;
+  const owner = process.env.OWNER_ADDRESS_TESTNET as string;
   
   const contractFactory = new TouchGrass__factory(wallet);
   const contract = await contractFactory.deploy(owner);

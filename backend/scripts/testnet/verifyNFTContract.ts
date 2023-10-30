@@ -1,13 +1,14 @@
-import { ethers } from "ethers";
 import * as hre from "hardhat";
-import { Plots, Plots__factory } from "../typechain-types";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-// run this script with hardhat: npx hardhat run ./scripts/verifyNFTContract.ts --network ETH_GOERLI
+// run this script with hardhat: npx hardhat run ./scripts/testnet/verifyNFTContract.ts --network TESTNET
 
-const constructorArguments = ["0x24D810964c578a9d543618E59CE5b96dc82323D2", process.env.OWNER_ADDRESS_TEST];
-const contractAddress =  "0xa78208769cdE9A2921Fd9D227EfBbe0f5F429Eb0";
+const TOKEN_ADDRESS = "0x9A5c3ad69A6A2EC704AfcD01411b46561467d556";
+const BASE_URI = "ipfs://bafybeihvge2ojc42yhrkgljg7nr7svfcpdtgzehxazdt7gxgokcrys7fxy/";
+
+const constructorArguments = [process.env.OWNER_ADDRESS_TESTNET, process.env.FEE_ADDRESS_TESTNET, TOKEN_ADDRESS, BASE_URI];
+const contractAddress = "0xFF49cE063f27d64536d91D7CEb3552eA759BbFe5";
 
 async function main() {
   
@@ -17,10 +18,12 @@ async function main() {
     await hre.run("verify:verify", {
       address: contractAddress,
       constructorArguments: constructorArguments,
+      contract: "contracts/Plots.sol:Plots"
     });
   } else {
     await hre.run("verify:verify", {
       address: contractAddress,
+      contract: "contracts/Plots.sol:Plots"
     });
   }
 }

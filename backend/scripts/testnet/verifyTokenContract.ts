@@ -2,10 +2,10 @@ import * as hre from "hardhat";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-// run this script with hardhat: npx hardhat run ./scripts/verifyTokenContract_Testnet.ts --network ETH_GOERLI
+// run this script with hardhat: npx hardhat run ./scripts/testnet/verifyTokenContract.ts --network TESTNET
 
-const constructorArguments = [process.env.OWNER_ADDRESS_TEST];
-const contractAddress =  "0x24D810964c578a9d543618E59CE5b96dc82323D2";
+const constructorArguments = [process.env.OWNER_ADDRESS_TESTNET];
+const contractAddress =  "0x9A5c3ad69A6A2EC704AfcD01411b46561467d556";
 
 async function main() {
   
@@ -15,10 +15,12 @@ async function main() {
     await hre.run("verify:verify", {
       address: contractAddress,
       constructorArguments: constructorArguments,
+      contract: "contracts/TouchGrass.sol:TouchGrass"
     });
   } else {
     await hre.run("verify:verify", {
       address: contractAddress,
+      contract: "contracts/TouchGrass.sol:TouchGrass"
     });
   }
 }

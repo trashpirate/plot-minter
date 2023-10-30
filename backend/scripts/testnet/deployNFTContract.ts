@@ -1,15 +1,16 @@
 import { ethers } from "ethers";
-import { Plots__factory } from "../typechain-types";
+import { Plots__factory } from "../../typechain-types";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-const tokenContractAddress = "0x24D810964c578a9d543618E59CE5b96dc82323D2";
-const feeAddress = process.env.OWNER_ADDRESS_TEST as string;
+const TOKEN_ADDRESS = "0x9A5c3ad69A6A2EC704AfcD01411b46561467d556";
+const BASE_URI =
+  "ipfs://bafybeihvge2ojc42yhrkgljg7nr7svfcpdtgzehxazdt7gxgokcrys7fxy/";
 
 async function main() {
   // define provider and deployer
   const provider = new ethers.JsonRpcProvider(
-    process.env.RPC_ENDPOINT_URL ?? ""
+    process.env.RPC_ENDPOINT_URL_TESTNET ?? ""
   );
   const wallet = new ethers.Wallet(
     process.env.PRIVATE_KEYS?.split(",")[0] ?? "",
@@ -26,8 +27,17 @@ async function main() {
   }
 
   // deploy contract
+  const owner = process.env.OWNER_ADDRESS_TESTNET as string;
+  const receiver = process.env.FEE_ADDRESS_TESTNET as string;
+  const tokenAdress = TOKEN_ADDRESS;
+
   const contractFactory = new Plots__factory(wallet);
-  const contract = await contractFactory.deploy(tokenContractAddress, feeAddress);
+  const contract = await contractFactory.deploy(
+    owner,
+    receiver,
+    tokenAdress,
+    BASE_URI
+  );
   await contract.waitForDeployment();
   const contractAddress = await contract.getAddress();
   console.log(`NFT contract deployed at ${contractAddress}`);
@@ -41,7 +51,6 @@ async function main() {
   console.log(
     `Contract confirmed with ${WAIT_BLOCK_CONFIRMATIONS} confirmations.`
   );
-
 }
 
 main().catch((error) => {

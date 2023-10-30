@@ -80,3 +80,6 @@ templates/evm/core/pages/api
 # solidity
 cache
 artifacts
+
+# nfts
+collection
