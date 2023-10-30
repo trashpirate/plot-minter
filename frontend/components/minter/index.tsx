@@ -2,7 +2,9 @@ import {
   useAccount,
   useContractEvent,
   useContractRead,
+  useContractReads,
   useContractWrite,
+  useNetwork,
   usePrepareContractWrite,
   useWaitForTransaction,
 } from "wagmi";
@@ -24,93 +26,99 @@ const MediaQuery = dynamic(() => import("react-responsive"), {
 const NFT_CONTRACT = process.env.NEXT_PUBLIC_NFT_CONTRACT as `0x${string}`;
 const TOKEN_CONTRACT = process.env.NEXT_PUBLIC_TOKEN_CONTRACT as `0x${string}`;
 const NETWORK_SCAN = process.env.NEXT_PUBLIC_NETWORK_SCAN;
-const nftFee = 1000000;
-const mintOpen = process.env.NEXT_PUBLIC_MINT_OPEN as string;
-
 
 export default function Minter() {
   const [nftAmount, setNFTAmount] = useState("1");
-  const [transferAmount, setTransferAmount] = useState(parseUnits(`${nftFee}`, 18));
+  const [transferAmount, setTransferAmount] = useState<bigint | null>(null);
   const [approvedAmount, setApprovedAmount] = useState<bigint | null>(null);
-  const [mintStarted, setMintStarted] = useState<boolean>(false);
-  const [connected, setConnected] = useState<boolean>(false);
-  const [tokenID, setTokenID] = useState<number | null>(null);
+  const [mintOpen, setMintOpen] = useState<boolean>(false);
 
   const [tokenBalance, setTokenBalance] = useState<number | null>(null);
   const [nftBalance, setNftBalance] = useState<number | null>(null);
+  const [nftFee, setNftFee] = useState<number>(0);
+  const [maxPerWallet, setMaxPerWallet] = useState<number>(2);
 
   // get account address
-  const { address, isConnecting, isDisconnected, isConnected } = useAccount({
-    onConnect({ address, connector, isReconnected }) {
-      setConnected(true);
-      setMintStarted(false);
-    },
-    onDisconnect() {
-      setConnected(false);
-    },
-  });
+  const { address, isConnected } = useAccount({});
 
-  // check balance
-  const {
-    data: tokenBalanceData,
-    isError: tokenBalanceError,
-    isLoading: tokenBalanceLoading,
-    isSuccess: tokenBalanceSuccess,
-  } = useContractRead({
+  // get chain
+  const { chain } = useNetwork();
+
+  // define token contract config
+  const tokenContract = {
     address: TOKEN_CONTRACT,
     abi: tokenABI,
-    functionName: "balanceOf",
-    args: [address as `0x${string}`],
-    enabled: address != null,
+    chainId: chain?.id,
+  };
+
+  // define token contract config
+  const nftContract = {
+    address: NFT_CONTRACT,
+    abi: nftABI,
+    chainId: chain?.id,
+  };
+
+  // check balance
+  const {} = useContractReads({
+    contracts: [
+      {
+        ...tokenContract,
+        functionName: "balanceOf",
+        args: [address as `0x${string}`],
+      },
+      {
+        ...tokenContract,
+        functionName: "allowance",
+        args: [address as `0x${string}`, NFT_CONTRACT],
+      },
+    ],
+    enabled: isConnected && address != null,
     watch: true,
-    onSuccess(data: bigint) {
-      setTokenBalance(Number(formatEther(data)));
+    onSuccess(data: any) {
+      setTokenBalance(Number(formatEther(data[0].result)));
+      setApprovedAmount(data[1].result as bigint);
     },
   });
 
   // check nft balance
-  const {
-    data: nftBalanceData,
-    isError: nftBalanceError,
-    isLoading: nftBalanceLoading,
-    isSuccess: nftBalanceSuccess,
-  } = useContractRead({
-    address: NFT_CONTRACT,
-    abi: tokenABI,
-    functionName: "balanceOf",
-    args: [address as `0x${string}`],
-    enabled: address != null,
+  const {} = useContractReads({
+    contracts: [
+      {
+        ...nftContract,
+        functionName: "balanceOf",
+        args: [address as `0x${string}`],
+      },
+      {
+        ...nftContract,
+        functionName: "fee",
+      },
+      {
+        ...nftContract,
+        functionName: "BATCH_LIMIT",
+      },
+      {
+        ...nftContract,
+        functionName: "MAX_MINT_PER_WALLET",
+      },
+    ],
+    enabled: isConnected && address != null,
     watch: true,
-    onSuccess(data) {
-      setNftBalance(Number(data));
-    },
-  });
-
-  // check allowance
-  const {
-    data: allowanceData,
-    isError: allowanceError,
-    isLoading: allowanceLoading,
-    isSuccess: allowanceSuccess,
-  } = useContractRead({
-    address: TOKEN_CONTRACT,
-    abi: tokenABI,
-    functionName: "allowance",
-    args: [address as `0x${string}`, NFT_CONTRACT],
-    enabled: address != null,
-    watch: true,
-    onSuccess(data) {
-      setApprovedAmount(data as bigint);
+    onSuccess(data: any) {
+      setNftBalance(Number(data[0].result));
+      setNftFee(Number(formatEther(data[1].result)));
+      if (Number(data[2].result) > 0) setMintOpen(true);
+      else setMintOpen(false);
+      setTransferAmount(parseUnits(`${nftFee}`, 18));
+      setMaxPerWallet(Number(data[3].result))
     },
   });
 
   // approving funds
   const { config: approvalConfig } = usePrepareContractWrite({
-    address: TOKEN_CONTRACT as `0x${string}`,
-    abi: tokenABI,
+    ...tokenContract,
     functionName: "approve",
-    args: [NFT_CONTRACT, transferAmount],
-    enabled: approvedAmount != null && approvedAmount < transferAmount,
+    args: [NFT_CONTRACT, transferAmount as bigint],
+    enabled: approvedAmount != null && transferAmount != null && approvedAmount < transferAmount,
   });
   const {
     data: approvedData,
@@ -126,15 +134,19 @@ export default function Minter() {
 
   // mint nfts
   const { config: mintConfig } = usePrepareContractWrite({
-    address: NFT_CONTRACT as `0x${string}`,
-    abi: nftABI,
+    ...nftContract,
     functionName: "mint",
     args: [BigInt(nftAmount)],
-    enabled: approvedAmount != null && approvedAmount >= transferAmount,
-    onSuccess(data) {
-      console.log(data);
-    },
+    enabled:
+      isConnected &&
+      approvedAmount != null &&
+      transferAmount != null &&
+      nftBalance != null &&
+      approvedAmount >= transferAmount &&
+      Number(nftAmount) > 0 &&
+      nftBalance + Number(nftAmount) <= maxPerWallet,
   });
+
   const {
     data: mintData,
     error: mintError,
@@ -147,33 +159,15 @@ export default function Minter() {
     hash: mintData?.hash,
   });
 
-  // watch for minting event
-  const unwatch = useContractEvent({
-    address: NFT_CONTRACT as `0x${string}`,
-    abi: nftABI,
-    eventName: "Approval",
-    listener(log: any) {
-      // console.log(log);
-      // console.log(log[0].topics[2]);
-      // console.log(address);
-      // console.log(parseInt(log[0].topics[3], 16));
-      if (log[0].topics[2] === address) {
-        // console.log(parseInt(log[0].topics[3], 16));
-        setTokenID(parseInt(log[0].topics[3], 16));
-        // unwatch?.();
-      }
-    },
-  });
-
   // button for minting
   function mintButton() {
-    if (!connected && mintOpen) {
+    if (!isConnected && mintOpen) {
       return (
         <div className={styles.connect}>
           <ConnectKitButton />
         </div>
       );
-    } else if (tokenBalance != null && tokenBalance < nftFee) {
+    } else if (tokenBalance != null && nftFee != null && tokenBalance < nftFee) {
       return (
         <button className={styles.button_inactive} disabled={true} onClick={(e) => {}}>
           Insufficient Balance
@@ -185,15 +179,18 @@ export default function Minter() {
           Max. 2 NFTs/Wallet
         </button>
       );
-    } else if (approvedAmount != null && approvedAmount >= transferAmount) {
+    } else if (
+      approvedAmount != null &&
+      transferAmount != null &&
+      approvedAmount >= transferAmount
+    ) {
       return (
         <button
           className={styles.button_active}
           disabled={!mint || isMintLoading}
           onClick={(e) => {
-            setMintStarted(true);
+            console.log("clicked");
             mint?.();
-            setMintStarted(false);
           }}
         >
           {isMintLoading ? "Minting..." : "MINT"}
@@ -205,7 +202,6 @@ export default function Minter() {
           className={styles.button}
           disabled={!approve || approvalLoading}
           onClick={(e) => {
-            setMintStarted(true);
             approve?.();
           }}
         >
@@ -217,9 +213,9 @@ export default function Minter() {
 
   // message after interaction
   function successMessage() {
-    if (approvedAmount != null && approvedAmount >= transferAmount) {
+    if (approvedAmount != null && transferAmount != null && approvedAmount >= transferAmount) {
       return <div className={styles.message}>Now mint your NFTs!</div>;
-    } else if (isMintSuccess && !mintStarted) {
+    } else if (isMintSuccess) {
       return (
         <div className={styles.message}>
           Successfully Minted!
@@ -240,7 +236,7 @@ export default function Minter() {
     if (isMintLoading) {
       return "/nftAnimation.gif";
     } else if (isMintSuccess) {
-      return tokenID != null ? `/nfts/${tokenID}.png` : "/featured_image.jpg";
+      return "/featured_image.jpg";
     } else {
       return "/logo.png";
     }
@@ -269,7 +265,7 @@ export default function Minter() {
       <div className={styles.mint_info}>
         <MediaQuery minDeviceWidth={1000}>{<NFTInfo></NFTInfo>}</MediaQuery>
 
-        {mintOpen == "true" && (
+        {mintOpen && (
           <div className={styles.account_info}>
             <h2>Account Info</h2>
             <div className={styles.horizontal_line}></div>
@@ -280,7 +276,7 @@ export default function Minter() {
           </div>
         )}
 
-        {mintOpen == "true" && (
+        {mintOpen && (
           <div className={styles.container_mint}>
             <form className={styles.form}>
               <label>
@@ -302,7 +298,7 @@ export default function Minter() {
             {successMessage()}
           </div>
         )}
-        {mintOpen == "false" && (
+        {!mintOpen && (
           <div className={styles.container_mint}>
             <h2>Plots NFT Collection Mint</h2>
             <h3>SEPTEMBER 28 | 1PM CST</h3>
@@ -311,8 +307,5 @@ export default function Minter() {
       </div>
     </div>
   );
-}
-function listReactFiles(__dirname: string) {
-  throw new Error("Function not implemented.");
 }
 
