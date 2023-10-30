@@ -94,22 +94,24 @@ export default function Minter() {
       },
       {
         ...nftContract,
-        functionName: "BATCH_LIMIT",
+        functionName: "batchLimit",
       },
       {
         ...nftContract,
-        functionName: "MAX_MINT_PER_WALLET",
+        functionName: "maxPerWallet",
       },
     ],
     enabled: isConnected && address != null,
     watch: true,
     onSuccess(data: any) {
-      setNftBalance(Number(data[0].result));
-      setNftFee(Number(formatEther(data[1].result)));
-      if (Number(data[2].result) > 0) setMintOpen(true);
-      else setMintOpen(false);
-      setTransferAmount(parseUnits(`${nftFee}`, 18));
-      setMaxPerWallet(Number(data[3].result))
+      if (data != null) {
+        setNftBalance(Number(data[0].result));
+        setNftFee(Number(formatEther(data[1].result)));
+        if (Number(data[2].result) > 0) setMintOpen(true);
+        else setMintOpen(false);
+        setTransferAmount(parseUnits(`${nftFee}`, 18));
+        setMaxPerWallet(Number(data[3].result));
+      }
     },
   });
 
@@ -220,7 +222,7 @@ export default function Minter() {
           Successfully Minted!
           <a target={"_blank"} href={`${NETWORK_SCAN}/${mintData?.hash}`}>
             <div>
-              <p>View on Etherscan</p>
+              <p>View on Bscscan</p>
             </div>
           </a>
         </div>
@@ -269,13 +271,21 @@ export default function Minter() {
             <h2>Account Info</h2>
             <div className={styles.horizontal_line}></div>
             <div className={styles.account_balances}>
-              <div>{`Balance: ${tokenBalance ? tokenBalance.toFixed(0) : "0"} $GRASS`}</div>
-              <div>{`NFTs minted: ${nftBalance != null ? nftBalance : 0}`}</div>
+              <div className={styles.balance}>
+                <div>{`Balance:`}</div>
+                <div style={{ textAlign: "right" }}>{`${
+                  tokenBalance != null ? tokenBalance.toFixed(0) : "0"
+                } $GRASS`}</div>
+              </div>
+              <div className={styles.balance}>
+                <div>{`NFTs minted:`}</div>
+                <div style={{ textAlign: "right" }}>{`${nftBalance != null ? nftBalance : 0}`}</div>
+              </div>
             </div>
           </div>
         )}
 
-        {mintOpen && (
+        {mintOpen && isConnected && (
           <div className={styles.container_mint}>
             <form className={styles.form}>
               <label>
@@ -297,9 +307,14 @@ export default function Minter() {
             {successMessage()}
           </div>
         )}
+        {mintOpen && !isConnected && (
+          <div className={styles.container_mint}>
+            <h2 style={{ marginTop: "50px" }}>MINT IS LIVE!</h2>
+          </div>
+        )}
         {!mintOpen && (
           <div className={styles.container_mint}>
-            <h2>Plots NFT Collection Mint</h2>
+            <h2 style={{ marginTop: "50px", marginBottom: "50px" }}>Plots NFT Collection Mint</h2>
             <h3>NOVEMBER 1 | 1PM CST</h3>
           </div>
         )}
@@ -307,4 +322,3 @@ export default function Minter() {
     </div>
   );
 }
-

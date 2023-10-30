@@ -1,6 +1,6 @@
 import { getDefaultConfig } from "connectkit";
 import { createConfig } from "wagmi";
-import { goerli, mainnet } from "wagmi/chains";
+import { goerli, mainnet, bscTestnet, bsc } from "wagmi/chains";
 
 export default function getWagmiConfig(useTest: string) {
   if (useTest == "true") {
@@ -11,7 +11,7 @@ export default function getWagmiConfig(useTest: string) {
         walletConnectProjectId: process.env.NEXT_PUBLIC_PROJECT_ID as string,
 
         // configured chain
-        chains: [goerli],
+        chains: [bscTestnet],
 
         // app name (required)
         appName: process.env.NEXT_PUBLIC_PROJECT_NAME as string,
@@ -33,7 +33,7 @@ export default function getWagmiConfig(useTest: string) {
 
         // configured chain
         // chains: [goerli],
-        chains: [mainnet],
+        chains: [bsc],
 
         // app name (required)
         appName: process.env.NEXT_PUBLIC_PROJECT_NAME as string,
