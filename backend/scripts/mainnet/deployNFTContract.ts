@@ -3,8 +3,9 @@ import { Plots__factory } from "../../typechain-types";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-const tokenContractAddress = "0xbc68ae53d383f399cc18268034c5e656fcb839f3";
-const feeAddress = process.env.FEE_ADDRESS as string;
+const TOKEN_ADDRESS = "0xce611eCEc4D31a356f4e4c0967B51F3d861F79CB";
+const BASE_URI =
+  "ipfs://bafybeihvge2ojc42yhrkgljg7nr7svfcpdtgzehxazdt7gxgokcrys7fxy/";
 
 async function main() {
   // define provider and deployer
@@ -26,8 +27,17 @@ async function main() {
   }
 
   // deploy contract
+  const owner = process.env.OWNER_ADDRESS_MAINNET as string;
+  const receiver = process.env.FEE_ADDRESS_MAINNET as string;
+  const tokenAdress = TOKEN_ADDRESS;
+
   const contractFactory = new Plots__factory(wallet);
-  const contract = await contractFactory.deploy(tokenContractAddress, feeAddress);
+  const contract = await contractFactory.deploy(
+    owner,
+    receiver,
+    tokenAdress,
+    BASE_URI
+  );
   await contract.waitForDeployment();
   const contractAddress = await contract.getAddress();
   console.log(`NFT contract deployed at ${contractAddress}`);
@@ -41,7 +51,6 @@ async function main() {
   console.log(
     `Contract confirmed with ${WAIT_BLOCK_CONFIRMATIONS} confirmations.`
   );
-
 }
 
 main().catch((error) => {

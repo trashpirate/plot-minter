@@ -19,7 +19,7 @@ const config: HardhatUserConfig = {
     },
     MAINNET: {
       accounts: [`0x${process.env.PRIVATE_KEY}`],
-      url: `${process.env.RPC_ENDPOINT_URL_TESTNET}`,
+      url: `${process.env.RPC_ENDPOINT_URL_MAINNET}`,
     },
     TESTNET: {
       accounts: [`0x${process.env.PRIVATE_KEY}`],
