@@ -18,10 +18,10 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "https://app.touchfreshgrass.com",
-    title: "Plots Minter",
+    title: "Plot Minter",
     description:
       "Plots are the way to disconnect from technology, and engage with the physical world, specifically by being in nature or getting fresh air. Now available on BSC!",
-    siteName: "Plots Minter",
+    siteName: "Plot Minter",
     images: [
       {
         url: "https://app.touchfreshgrass.com/plots.jpg",
