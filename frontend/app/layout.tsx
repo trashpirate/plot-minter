@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://app.touchfreshgrass.com"),
   title: "Plot NFTs",
   description:
-    "Plots are the way to disconnect from technology, and engage with the physical world, specifically by being in nature or getting fresh air.",
+    "Plots are the way to disconnect from technology, and engage with the physical world, specifically by being in nature or getting fresh air. Now available on BSC!",
   applicationName: "Plots Minter",
   twitter: {
     card: "summary_large_image",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     url: "https://app.touchfreshgrass.com",
     title: "Plots Minter",
     description:
-      "Plots are the way to disconnect from technology, and engage with the physical world, specifically by being in nature or getting fresh air.",
+      "Plots are the way to disconnect from technology, and engage with the physical world, specifically by being in nature or getting fresh air. Now available on BSC!",
     siteName: "Plots Minter",
     images: [
       {
