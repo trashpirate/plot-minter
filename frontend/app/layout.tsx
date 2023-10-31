@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "app.touchfreshgrass.com",
     creator: "Touch Grass",
-    images: "https://app.touchfreshgrass.com/featured_image.jpg",
+    images: "https://app.touchfreshgrass.com/plots.jpg",
   },
   openGraph: {
     type: "website",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     siteName: "Plots Minter",
     images: [
       {
-        url: "https://app.touchfreshgrass.com/featured_image.jpg",
+        url: "https://app.touchfreshgrass.com/plots.jpg",
       },
     ],
   },
