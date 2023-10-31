@@ -14,7 +14,9 @@ let others: HardhatEthersSigner[];
 
 const nftName = "Plots";
 const nftSymbol = "PLOT";
-const mintCost = ethers.parseUnits("1000000");
+const mintCost = ethers.parseUnits("2000000");
+const baseUri =
+  "ipfs://bafybeihvge2ojc42yhrkgljg7nr7svfcpdtgzehxazdt7gxgokcrys7fxy/";
 
 // function to deploy token contract
 async function deployTokenContract() {
@@ -28,7 +30,7 @@ async function deployTokenContract() {
 // function to deploy betting contract
 async function deployBettingContract() {
   const contractFactory = await ethers.getContractFactory("Plots");
-  const contract = await contractFactory.deploy(tokenAddress, receiver.address);
+  const contract = await contractFactory.deploy(owner.address, tokenAddress, receiver.address, baseUri);
   await contract.waitForDeployment();
   nftContractAddress = await contract.getAddress();
   return contract;
@@ -73,7 +75,7 @@ describe("Tests for NFT contract", async () => {
     });
     it("returns correct owner", async () => {
       const ownerAddress = await nftContract.owner();
-      expect(ownerAddress).to.eq(deployer.address);
+      expect(ownerAddress).to.eq(owner.address);
     });
   });
 
@@ -91,17 +93,17 @@ describe("Tests for NFT contract", async () => {
 
     it("owner can set new fee", async () => {
       const newFee = ethers.parseUnits("2000");
-      await nftContract.setFee(newFee);
+      await nftContract.connect(owner).setFee(newFee);
       const fee = await nftContract.fee();
       expect(fee).to.eq(newFee);
     });
     it("owner can set new fee address", async () => {
-      await nftContract.setFeeAddress(owner.address);
+      await nftContract.connect(owner).setFeeAddress(owner.address);
       const feeAddress = await nftContract.feeAddress();
       expect(feeAddress).to.eq(owner.address);
     });
     it("owner can set new fee address", async () => {
-      await nftContract.setFeeAddress(owner.address);
+      await nftContract.connect(owner).setFeeAddress(owner.address);
       const feeAddress = await nftContract.feeAddress();
       expect(feeAddress).to.eq(owner.address);
     });
@@ -118,7 +120,7 @@ describe("Tests for NFT contract", async () => {
       let contractBalance = await tokenContract.balanceOf(nftContractAddress);
       expect(contractBalance).to.eq(sentTokenAmount);
 
-      const withdrawTx = await nftContract.withdrawTokens(tokenAddress, account.address, sentTokenAmount);
+      const withdrawTx = await nftContract.connect(owner).withdrawTokens(tokenAddress, account.address);
       await withdrawTx.wait();
       contractBalance = await tokenContract.balanceOf(nftContractAddress);
       expect(contractBalance).to.eq(0n);
@@ -142,7 +144,7 @@ describe("Tests for NFT contract", async () => {
       let contractBalance = await anyToken.balanceOf(nftContractAddress);
       expect(contractBalance).to.eq(sentTokenAmount);
 
-      const withdrawTx = await nftContract.withdrawTokens(anyTokenAddress, account.address, sentTokenAmount);
+      const withdrawTx = await nftContract.connect(owner).withdrawTokens(anyTokenAddress, account.address);
       await withdrawTx.wait();
       contractBalance = await anyToken.balanceOf(nftContractAddress);
       expect(contractBalance).to.eq(0n);
@@ -168,7 +170,7 @@ describe("Tests for NFT contract", async () => {
       for (let index = 0; index < others.length; index++) {
         const tx = await tokenContract
           .connect(owner)
-          .transfer(others[index].address, ethers.parseUnits("3000000"));
+          .transfer(others[index].address, ethers.parseUnits("5000000"));
         await tx.wait();
       }
     });

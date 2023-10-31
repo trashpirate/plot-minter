@@ -1,21 +1,36 @@
 "use client";
-
+import Link from "next/link";
+import Image from "next/image";
 import { ConnectKitButton } from "connectkit";
 import styles from "./navbar.module.css";
 export default function Navbar() {
   return (
     <nav className={styles.navbar}>
-      <a className={styles.home_button} href="https://touchfreshgrass.com/" target={"_blank"}>
+      <Link className={styles.home_button} href="https://touchfreshgrass.com/" target={"_blank"}>
+        <Image
+          src="/logo.png"
+          alt="GRASS logo"
+          className={styles.button_img}
+          width={50}
+          height={50}
+          priority
+        />
         <p>Touch Grass</p>
-      </a>
-      <a
-        className={styles.buy_button}
-        href="https://app.uniswap.org/swap?outputCurrency=0xbc68ae53d383f399cc18268034c5e656fcb839f3"
-        target={"_blank"}
-      >
+      </Link>
+      <Link className={styles.buy_button} href="https://diamondswap.org/" target={"_blank"}>
+        <Image
+          src="/diamondswap.svg"
+          alt="diamondswap logo"
+          className={styles.button_img}
+          width={50}
+          height={50}
+          priority
+        />
         <p>BUY $GRASS</p>
-      </a>
-      <ConnectKitButton />
+      </Link>
+      <div className={styles.connect_button}>
+        <ConnectKitButton />
+      </div>
     </nav>
   );
 }

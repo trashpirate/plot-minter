@@ -2,11 +2,11 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/home/oates/projects/plot-minter/backend/contracts/ERC20Token.sol": {
-      "lastModificationDate": 1695594946195,
-      "contentHash": "07a99cfeefffbd95ea0a8d1c9aaf67dc",
+      "lastModificationDate": 1698680183200,
+      "contentHash": "5458a638918b499781282f07f15dbb41",
       "sourceName": "contracts/ERC20Token.sol",
       "solcConfig": {
-        "version": "0.8.19",
+        "version": "0.8.18",
         "settings": {
           "optimizer": {
             "enabled": true,
@@ -33,7 +33,7 @@
         "@openzeppelin/contracts/access/Ownable.sol"
       ],
       "versionPragmas": [
-        "^0.8.19"
+        "^0.8.18"
       ],
       "artifacts": [
         "Token"
@@ -44,7 +44,7 @@
       "contentHash": "5a20b2cad87ddb61c7a3a6af21289e28",
       "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
       "solcConfig": {
-        "version": "0.8.19",
+        "version": "0.8.18",
         "settings": {
           "optimizer": {
             "enabled": true,
@@ -81,7 +81,7 @@
       "contentHash": "3ae5166c6827a9cf1a7a462d1632b464",
       "sourceName": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
       "solcConfig": {
-        "version": "0.8.19",
+        "version": "0.8.18",
         "settings": {
           "optimizer": {
             "enabled": true,
@@ -120,7 +120,7 @@
       "contentHash": "5f2c5c4b6af2dd4551027144797bc8be",
       "sourceName": "@openzeppelin/contracts/utils/Context.sol",
       "solcConfig": {
-        "version": "0.8.19",
+        "version": "0.8.18",
         "settings": {
           "optimizer": {
             "enabled": true,
@@ -155,7 +155,7 @@
       "contentHash": "df36f7051335cd1e748b1b6463b7fdd3",
       "sourceName": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
       "solcConfig": {
-        "version": "0.8.19",
+        "version": "0.8.18",
         "settings": {
           "optimizer": {
             "enabled": true,
@@ -190,7 +190,7 @@
       "contentHash": "909ab67fc5c25033fe6cd364f8c056f9",
       "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol",
       "solcConfig": {
-        "version": "0.8.19",
+        "version": "0.8.18",
         "settings": {
           "optimizer": {
             "enabled": true,
@@ -223,11 +223,11 @@
       ]
     },
     "/home/oates/projects/plot-minter/backend/contracts/Plots.sol": {
-      "lastModificationDate": 1695595073456,
-      "contentHash": "c98c4cfb9c431dd87d58596505ef624d",
+      "lastModificationDate": 1698686349365,
+      "contentHash": "6248f89e13e888f65efee28f6d34d4f6",
       "sourceName": "contracts/Plots.sol",
       "solcConfig": {
-        "version": "0.8.19",
+        "version": "0.8.18",
         "settings": {
           "optimizer": {
             "enabled": true,
@@ -255,7 +255,7 @@
         "@openzeppelin/contracts/access/Ownable.sol"
       ],
       "versionPragmas": [
-        "^0.8.9"
+        "^0.8.18"
       ],
       "artifacts": [
         "Plots"
@@ -266,7 +266,7 @@
       "contentHash": "227e9db819fd61602f833edafcda7d4a",
       "sourceName": "erc721a/contracts/ERC721A.sol",
       "solcConfig": {
-        "version": "0.8.19",
+        "version": "0.8.18",
         "settings": {
           "optimizer": {
             "enabled": true,
@@ -304,7 +304,7 @@
       "contentHash": "c31a05698ddc2f109ba8723105d854c6",
       "sourceName": "erc721a/contracts/IERC721A.sol",
       "solcConfig": {
-        "version": "0.8.19",
+        "version": "0.8.18",
         "settings": {
           "optimizer": {
             "enabled": true,
@@ -335,11 +335,11 @@
       ]
     },
     "/home/oates/projects/plot-minter/backend/contracts/TouchGrass.sol": {
-      "lastModificationDate": 1695594943525,
-      "contentHash": "78ac3fc279081d28134c340bd7346ecb",
+      "lastModificationDate": 1698680232001,
+      "contentHash": "98f7b8c8c1428fbd3cfcd284e7745461",
       "sourceName": "contracts/TouchGrass.sol",
       "solcConfig": {
-        "version": "0.8.19",
+        "version": "0.8.18",
         "settings": {
           "optimizer": {
             "enabled": true,
@@ -366,7 +366,7 @@
         "@openzeppelin/contracts/access/Ownable.sol"
       ],
       "versionPragmas": [
-        "^0.8.19"
+        "^0.8.18"
       ],
       "artifacts": [
         "TouchGrass"

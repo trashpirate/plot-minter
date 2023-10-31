@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { TouchGrass__factory } from "../typechain-types";
+import { TouchGrass__factory } from "../../typechain-types";
 import * as dotenv from "dotenv";
 dotenv.config();
 

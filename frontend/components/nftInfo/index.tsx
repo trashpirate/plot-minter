@@ -19,12 +19,7 @@ export default function NFTInfo() {
   const [remainingSupply, setRemainingSupply] = useState<number | null>(null);
 
   // check allowance
-  const {
-    data: totalSupplyData,
-    isError: totalSupplyError,
-    isLoading: totalSupplyLoading,
-    isSuccess: totalSupplySuccess,
-  } = useContractRead({
+  const {} = useContractRead({
     address: NFT_CONTRACT,
     abi: nftABI,
     functionName: "totalSupply",
@@ -38,18 +33,11 @@ export default function NFTInfo() {
   // render component
   return (
     <div className={styles.container}>
-      {/* <Image
-        src="/logo.png"
-        width={150}
-        height={150}
-        alt="Plot NFTs"
-        style={{ margin: "20px auto", borderRadius: "10px" }}
-      /> */}
       <div className={styles.container_info}>
         <div>{`Total NFTs minted: ${totalSupply}`}</div>
         <div>{`Remaining NFTs to mint: ${remainingSupply}`}</div>
       </div>
-      <a href="https://opensea.io/collection/tgplots" className={styles.button}>
+      <a href="https://opensea.io/collection/plots-bsc" className={styles.button}>
         View on OpenSea
       </a>
     </div>

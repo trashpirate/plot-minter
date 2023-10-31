@@ -2,13 +2,13 @@ import * as hre from "hardhat";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-// run this script with hardhat: npx hardhat run ./scripts/testnet/verifyNFTContract.ts --network TESTNET
+// run this script with hardhat: npx hardhat run ./scripts/mainnet/verifyNFTContract.ts --network MAINNET
 
-const TOKEN_ADDRESS = "0x9A5c3ad69A6A2EC704AfcD01411b46561467d556";
+const TOKEN_ADDRESS = "0xce611eCEc4D31a356f4e4c0967B51F3d861F79CB";
 const BASE_URI = "ipfs://bafybeihvge2ojc42yhrkgljg7nr7svfcpdtgzehxazdt7gxgokcrys7fxy/";
 
-const constructorArguments = [process.env.OWNER_ADDRESS_TESTNET, process.env.FEE_ADDRESS_TESTNET, TOKEN_ADDRESS, BASE_URI];
-const contractAddress = "0xFF49cE063f27d64536d91D7CEb3552eA759BbFe5";
+const constructorArguments = [process.env.OWNER_ADDRESS_MAINNET, process.env.FEE_ADDRESS_MAINNET, TOKEN_ADDRESS, BASE_URI];
+const contractAddress = "0x8C9eAD5e40EddC7F8EfA6ee3f1B9d40e37B8cABc";
 
 async function main() {
   
