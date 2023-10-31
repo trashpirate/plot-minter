@@ -37,7 +37,7 @@ export default function NFTInfo() {
         <div>{`Total NFTs minted: ${totalSupply}`}</div>
         <div>{`Remaining NFTs to mint: ${remainingSupply}`}</div>
       </div>
-      <a href="https://opensea.io/collection/tgplots" className={styles.button}>
+      <a href="https://opensea.io/collection/plots-bsc" className={styles.button}>
         View on OpenSea
       </a>
     </div>
