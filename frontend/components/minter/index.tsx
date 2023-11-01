@@ -260,7 +260,7 @@ export default function Minter() {
           }}
         />
         <div className={styles.nft_price}>
-          <h3>Price: 1M $GRASS</h3>
+          <h3>Price: 2M $GRASS</h3>
         </div>
       </div>
       <div className={styles.mint_info}>
