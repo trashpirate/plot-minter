@@ -35,9 +35,11 @@ async function main() {
   console.log(`NFT contract deployed at ${ contractAddress }`);
 
   // set batch limit
-  const setTx = await nftContract.connect(ownerWallet).setBatchLimit(0n);
+  const setTx2 = await nftContract.connect(ownerWallet).setMaxPerWallet(10n);
+  await setTx2.wait();
+  const setTx = await nftContract.connect(ownerWallet).setBatchLimit(10n);
   await setTx.wait();
-  // const setTx = await nftContract.connect(ownerWallet).setMaxPerWallet(2n);
+  
   
 }
 
