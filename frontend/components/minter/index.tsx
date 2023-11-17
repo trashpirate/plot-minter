@@ -175,10 +175,10 @@ export default function Minter() {
           Insufficient Balance
         </button>
       );
-    } else if (nftBalance != null && nftBalance >= 2) {
+    } else if (nftBalance != null && nftBalance >= 10) {
       return (
         <button className={styles.button_inactive} disabled={true} onClick={(e) => {}}>
-          Max. 2 NFTs/Wallet
+          Max. 10 NFTs/Wallet
         </button>
       );
     } else if (
@@ -293,7 +293,7 @@ export default function Minter() {
                 <input
                   type="number"
                   value={nftAmount}
-                  max="2"
+                  max="10"
                   min="1"
                   placeholder="1"
                   onChange={(e) => {
